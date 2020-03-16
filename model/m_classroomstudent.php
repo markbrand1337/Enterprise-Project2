@@ -1,0 +1,85 @@
+<?php
+include_once('model/dbconnect.php');
+class m_ClassroomStudent extends DBconnect
+{
+
+	public function getAllClassroomStudent()
+	{
+		$sql = "SELECT * FROM tblclassroomstudent";
+		$this->setQuery($sql);
+		$classroomstudentlist = $this->getAllRows();
+		return $classroomstudentlist;
+	}
+	public function getClassroomStudent($classroom_id)
+	{
+		$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
+		$this->setQuery($sql);
+		$listclassroomstudent = $this->getAllRows($classroom_id);
+		return $listclassroomstudent;
+	}
+	public function getStudentClassroom($user_id)
+	{
+		$sql = "SELECT  classroom_id FROM tblclassroomstudent WHERE user_id='$user_id';";
+		$this->setQuery($sql);
+		$liststudentclassroom = $this->getAllRows($user_id);
+		return $liststudentclassroom;
+	}
+
+	public function AddClassroomStudent($user_id,$classroom_id)
+		 {
+		 	 
+		 	$sql = "INSERT INTO tblclassroomstudent(user_id,classroom_id) values (?,?);";
+		 	$this->setQuery($sql);
+		  
+		 	$result = $this->execute(array($user_id,$classroom_id));
+		 	if($result)
+		 	{
+		 		return $this->getLastInserted();
+		 	}
+		 	else
+		 		return false;
+		 }
+
+public function EditClassroomStudent($user_id,$classroom_id)
+		 {
+		 	 
+		 	$sql = "UPDATE tblclassroomstudent SET user_id = '$user_id' where classroom_id='$classroom_id' ;";
+		 	$this->setQuery($sql);
+		 	 
+		 	$result = $this->execute(array($user_id,$classroom_id));
+		 	if($result)
+		 	{
+		 		return $this->getLastInserted();
+		 	}
+		 	else
+		 		return false;
+		 }
+
+	public function DeleteClassroomStudent($user_id,$classroom_id)
+		 {
+		 	 
+		 	$sql = "DELETE FROM tblclassroomstudent where classroom_id='$classroom_id' and user_id = '$user_id';";
+		 	$this->setQuery($sql);
+		 	 
+		 	$result = $this->execute(array($user_id,$classroom_id));
+		 	if($result)
+		 	{
+		 		return $this->getLastInserted();
+		 	}
+		 	else
+		 		return false;
+		 }
+	public function getOneClasroomStudent($classroom_id)
+			 {
+			 	$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
+			 	$this->setQuery($sql);
+			 	return $this->getOneRow(array($classroom_id));
+			 }
+	public function getOneStudentClassroomList($user_id)
+			 {
+			 	$sql = "SELECT  classroom_id FROM tblclassroomstudent WHERE user_id='$user_id';";
+			 	$this->setQuery($sql);
+			 	return $this->getOneRow(array($user_id));
+			 }
+}
+?>
