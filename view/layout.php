@@ -10,7 +10,7 @@
 	<div class="content-wrapper">
 
   <?php 
-  include("view/$view.php");
+  include_once("view/$view.php");
   ?>
 
   </div>

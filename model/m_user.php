@@ -27,7 +27,7 @@ class m_User extends DBconnect
 		return $studentlist;
 	}
 
-	public function register($first_name,$last_name.$email,$password,$role)
+	public function register($first_name,$last_name,$email,$password,$role)
 		 {
 		 	//the inset sql statement with ? is parameter
 		 	
@@ -35,7 +35,7 @@ class m_User extends DBconnect
 		 	$this->setQuery($sql);
 		 	//before insert , must encrypt pass to md5
 		 	//call function to execute with array as parameter
-		 	$result = $this->execute(array($first_name,$last_name.$email,md5($password),$role));
+		 	$result = $this->execute(array($first_name,$last_name,$email,md5($password),$role));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -52,13 +52,13 @@ class m_User extends DBconnect
  	return $this->getOneRow(array($email,$md5pass));
  }
 		 
-	public function EditUser($user_id,$first_name,$last_name.$email,$password,$role)
+	public function EditUser($user_id,$first_name,$last_name,$email,$password,$role)
 		 {
 		 	 
 		 	$sql = "UPDATE tbluser SET first_name = '$first_name',last_name = '$last_name' ,email = '$email' ,password = '$password',role ='$role' where user_id='$user_id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($user_id,$first_name,$last_name.$email,$password,$role));
+		 	$result = $this->execute(array($user_id,$first_name,$last_name,$email,$password,$role));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();

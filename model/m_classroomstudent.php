@@ -40,20 +40,20 @@ class m_ClassroomStudent extends DBconnect
 		 		return false;
 		 }
 
-public function EditClassroomStudent($user_id,$classroom_id)
-		 {
+// public function EditClassroomStudent($user_id,$classroom_id)
+// 		 {
 		 	 
-		 	$sql = "UPDATE tblclassroomstudent SET user_id = '$user_id' where classroom_id='$classroom_id' ;";
-		 	$this->setQuery($sql);
+// 		 	$sql = "UPDATE tblclassroomstudent SET user_id = '$user_id' where classroom_id='$classroom_id' ;";
+// 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($user_id,$classroom_id));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+// 		 	$result = $this->execute(array($user_id,$classroom_id));
+// 		 	if($result)
+// 		 	{
+// 		 		return $this->getLastInserted();
+// 		 	}
+// 		 	else
+// 		 		return false;
+// 		 }
 
 	public function DeleteClassroomStudent($user_id,$classroom_id)
 		 {
@@ -69,17 +69,12 @@ public function EditClassroomStudent($user_id,$classroom_id)
 		 	else
 		 		return false;
 		 }
-	public function getOneClasroomStudent($classroom_id)
+	public function getOneClasroomStudent($user_id,$classroom_id)
 			 {
-			 	$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
+			 	$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id' and user_id='$user_id';";
 			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($classroom_id));
+			 	return $this->getOneRow(array($user_id,$classroom_id));
 			 }
-	public function getOneStudentClassroomList($user_id)
-			 {
-			 	$sql = "SELECT  classroom_id FROM tblclassroomstudent WHERE user_id='$user_id';";
-			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($user_id));
-			 }
+	
 }
 ?>

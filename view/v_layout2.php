@@ -1,6 +1,6 @@
 <?php
 include_once("controller/c_user.php");
-session_start();
+
 
 ?>
 <!DOCTYPE html>
@@ -35,20 +35,28 @@ session_start();
 				<div class="row align-items-center">
 					<div class="col-lg-6 col-sm-6 col-4 header-top-left">
 						
-						<div>
-							<?php if(isset($_SESSION['user_name'])) { ?><span class="text">
+						<div><?php
+				              if(isset($_SESSION['user_name']))
+				                {
+				               ?><span class="text">
 								<span class="text">Hello <?=$_SESSION['user_name']?></span>
-							</span><?php } ?>
-						</div>
+							</span><?php 
+				                }
+				              ?></div>
 					</div>
-					<div class="col-lg-6 col-sm-6 col-8 header-top-right">
-						<?php if(isset($_SESSION['user_name'])) { ?>
+					<div class="col-lg-6 col-sm-6 col-8 header-top-right"><?php
+				              if(isset($_SESSION['user_name']))
+				                {
+				               ?>
 						<a href="#" class="text-uppercase">Logout</a>
-							<?php }else{ ?>
+							<?php
+			                }else{
+			                ?>
 			              <a href="signup.php" class="text-uppercase">Signup</a>
 			               <a href="login.php" class="text-uppercase">Login</a>
-			             	 <?php } ?>
-            </div>
+			              <?php 
+                }
+                ?></div>
 				</div>
 			</div>
 		</div>
@@ -67,7 +75,7 @@ session_start();
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="edusmart/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -103,7 +111,9 @@ session_start();
 				               ?>
 							<li class="nav-item"><a class="nav-link" href="">Admin Function</a></li>
 							<?php
-				              }?><li class="nav-item">
+				              } ?>
+
+				              <li class="nav-item">
 								<a href="#" class="nav-link search" id="search">
 									<i class="lnr lnr-magnifier"></i>
 								</a>
