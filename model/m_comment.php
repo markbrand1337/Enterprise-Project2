@@ -7,8 +7,15 @@ class m_Comment extends DBconnect
 	{
 		$sql = "SELECT * FROM tblcomment";
 		$this->setQuery($sql);
-		$userlist = $this->getAllRows();
-		return $userlist;
+		$commentlist = $this->getAllRows();
+		return $commentlist;
+	}
+	public function getAllPostComment($post_id)
+	{
+		$sql = "SELECT * FROM tblcomment where post_id = '$post_id'";
+		$this->setQuery($sql);
+		$commentlist = $this->getAllRows(array($post_id));
+		return $commentlist;
 	}
 
 	public function AddComment($post_id,$content,$user_id,$created_at)

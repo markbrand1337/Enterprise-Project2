@@ -18,7 +18,7 @@ if(isset($_POST['register']))
 		$repass=$_POST['repassword'];
 	if(isset($_POST['role']))
 		$role=$_POST['role'];
-	if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role']) && isset($_POST['repassword']) && $pass==$repass && strlen($_POST['password']) >0 && strlen($_POST['password'])<50 && strlen($_POST['email']) >0 &&strlen($_POST['email'])<100)
+	if(isset($_POST['first_name']) && isset($_POST['last_name']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['role']) && isset($_POST['repassword']) && $pass==$repass && strlen($_POST['first_name']) >2 && strlen($_POST['first_name']) <45 && strlen($_POST['last_name']) >2 && strlen($_POST['last_name']) <45 && strlen($_POST['password']) >0 && strlen($_POST['password'])<45 && strlen($_POST['email']) >0 &&strlen($_POST['email'])<45)
 	{
 		
 		$cuser = new c_User();
@@ -40,9 +40,9 @@ if(isset($_POST['register']))
 		 <h2 class="pt-4 text-white card-title text-center">Registration Form</h2>
 				<form action="#" method="post" class="center p-3 pb-4">
 				  <h3 class="pt-4 text-white card-title">First Name</h3><h4 class=" bg-danger text-white"></bg-dark>
-				  <input type="text" class="col-12 single-input-primary form-control form-control-lg" name="first_name" required="required" />
+				  <input type="text" class="col-12 single-input-primary form-control form-control-lg" name="first_name" required="required" pattern="[A-Z][a-z]{2,45}" />
 				  <h3 class="pt-4 text-white card-title">Last Name</h3><h4 class=" bg-danger text-white"></bg-dark>
-				  <input type="text" class="col-12 single-input-primary form-control form-control-lg" name="last_name" required="required" />
+				  <input type="text" class="col-12 single-input-primary form-control form-control-lg" name="last_name" required="required" pattern="[A-Z][a-z]{2,45}" />
 				  <h3 class="pt-4 text-white card-title">Email</h3><h4 class=" bg-danger text-white"></bg-dark>
 				  <input type="email" class="col-12 single-input-primary form-control form-control-lg" name="email" required="required" />
 				  <h3 class="pt-4 text-white card-title">Password</h3><h4 class=" bg-danger text-white"></bg-dark>

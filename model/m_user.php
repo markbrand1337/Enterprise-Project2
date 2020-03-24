@@ -5,12 +5,23 @@ class m_User extends DBconnect
 
 	public function getAllUser()
 	{
+		// $sql = "SELECT * FROM tbluser";
+		// $this->setQuery($sql);
+		// $userlist = $this->getAllRows();
+		// return $userlist;
+
 		$sql = "SELECT * FROM tbluser";
 		$this->setQuery($sql);
 		$userlist = $this->getAllRows();
 		return $userlist;
 	}
-
+	public function searchStudentByName($name)
+	{
+		$sql = "SELECT  * FROM tbluser WHERE first_name like'%$name%' or last_name like '%$name%' ;";
+		$this->setQuery($sql);
+		$userlist = $this->getAllRows(array($name));
+		return $userlist;
+	}
 	public function getAllTutor()
 	{
 		$sql = "SELECT * FROM tbluser where role = 2";
@@ -24,6 +35,13 @@ class m_User extends DBconnect
 		$sql = "SELECT * FROM tbluser where role = 1";
 		$this->setQuery($sql);
 		$studentlist = $this->getAllRows();
+		return $studentlist;
+	}
+	public function getAllStudentNotFromClass($class)
+	{
+		$sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where classroom_id != '$class'";
+		$this->setQuery($sql);
+		$studentlist = $this->getAllRows(array($class));
 		return $studentlist;
 	}
 

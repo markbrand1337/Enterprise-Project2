@@ -10,13 +10,28 @@ class m_Post extends DBconnect
 		$userlist = $this->getAllRows();
 		return $userlist;
 	}
-	public function AddPost($content,$user_id,$created_at)
+
+	public function getAllUserPost($user_id)
+	{
+		$sql = "SELECT * FROM tblpost where user_id='$user_id'";
+		$this->setQuery($sql);
+		$userlist = $this->getAllRows(array($user_id));
+		return $userlist;
+	}
+	public function getAllClassPost($in_class)
+	{
+		$sql = "SELECT * FROM tblpost where in_class='$in_class'";
+		$this->setQuery($sql);
+		$userlist = $this->getAllRows(array($in_class));
+		return $userlist;
+	}
+	public function AddPost($content,$user_id,$in_class,$created_at)
 		 {
 		 	 
-		 	$sql = "INSERT INTO tblpost(content,user_id,created_at) values (?,?,?);";
+		 	$sql = "INSERT INTO tblpost(content,user_id,in_class,created_at) values (?,?,?);";
 		 	$this->setQuery($sql);
 		  
-		 	$result = $this->execute(array($content,$user_id,$created_at));
+		 	$result = $this->execute(array($content,$user_id,$in_class,$created_at));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -25,13 +40,13 @@ class m_Post extends DBconnect
 		 		return false;
 		 }
 
-public function EditPost($post_id,$content,$user_id,$created_at)
+public function EditPost($post_id,$content)
 		 {
 		 	 
-		 	$sql = "UPDATE tblpost SET content = '$content',user_id = '$user_id' ,created_at = '$created_at' where post_id='$post_id' ;";
+		 	$sql = "UPDATE tblpost SET content = '$content' where post_id='$post_id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($post_id,$content,$user_id,$created_at));
+		 	$result = $this->execute(array($post_id,$content);
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();

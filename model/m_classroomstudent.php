@@ -12,16 +12,16 @@ class m_ClassroomStudent extends DBconnect
 	}
 	public function getClassroomStudent($classroom_id)
 	{
-		$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
+		$sql = "SELECT  * FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
 		$this->setQuery($sql);
-		$listclassroomstudent = $this->getAllRows($classroom_id);
+		$listclassroomstudent = $this->getAllRows(array($classroom_id));
 		return $listclassroomstudent;
 	}
 	public function getStudentClassroom($user_id)
 	{
-		$sql = "SELECT  classroom_id FROM tblclassroomstudent WHERE user_id='$user_id';";
+		$sql = "SELECT  * FROM tblclassroomstudent WHERE user_id='$user_id';";
 		$this->setQuery($sql);
-		$liststudentclassroom = $this->getAllRows($user_id);
+		$liststudentclassroom = $this->getAllRows(array($user_id));
 		return $liststudentclassroom;
 	}
 

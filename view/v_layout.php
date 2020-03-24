@@ -1,6 +1,9 @@
 <?php
 include_once("controller/c_user.php");
-session_start();
+if(!isset($_SESSION)) 
+    { 
+        session_start(); 
+    } 
 
 ?>
 <!DOCTYPE html>
@@ -11,7 +14,7 @@ session_start();
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="edusmart/img/favicon.png" type="image/png">
-	<title>EduSmart Education</title>
+	<title>Enterprise Project</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="edusmart/css/bootstrap.css">
 	<link rel="stylesheet" href="edusmart/vendors/linericon/style.css">
@@ -77,7 +80,7 @@ session_start();
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
-							<li class="nav-item active"><a class="nav-link" href="index.html">Home</a></li>
+							<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
 							<li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -104,9 +107,9 @@ session_start();
 							<li class="nav-item"><a class="nav-link" href="">Admin Function</a></li>
 							<?php
 				              }?><li class="nav-item">
-								<a href="#" class="nav-link search" id="search">
+								<!-- <a href="#" class="nav-link search" id="search">
 									<i class="lnr lnr-magnifier"></i>
-								</a>
+								</a> -->
 							</li>
 						</ul>
 					</div>
@@ -117,7 +120,7 @@ session_start();
 	<!--================ End Header Menu Area =================-->
 		
 	<!--================ Start Body Area =================-->
-			<div class="content-wrapper">
+			<div class="content-wrapper bg-light">
 
 			  
 			<?php 
