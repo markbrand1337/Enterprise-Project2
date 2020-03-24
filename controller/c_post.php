@@ -18,11 +18,11 @@ class c_Post extends c_Router{
 		return $data;
 	}
 
-	public function AddPost($name,$subject_id,$user_id,$status)
+	public function AddPost($content,$user_id,$in_class,$created_at)
 	{
 
 		$model = new m_Post();
-		$id = $model->AddPost($name,$subject_id,$user_id,$status);
+		$id = $model->AddPost($content,$user_id,$created_at);
 		
 		if($id>0)
 		{
@@ -42,11 +42,11 @@ class c_Post extends c_Router{
 
 		}
 	}
-	public function EditPost($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditPost($post_id,$content)
 	{
 
 		$model = new m_Post();
-		$idd = $model->EditPost($comment_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditPost($post_id,$content);
 		
 		if($idd>0)
 		{

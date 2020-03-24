@@ -18,11 +18,11 @@ class c_Subject extends c_Router{
 		return $data;
 	}
 
-	public function AddSubject($name,$subject_id,$user_id,$status)
+	public function AddSubject($name,$description)
 	{
 
 		$model = new m_Subject();
-		$id = $model->AddSubject($name,$subject_id,$user_id,$status);
+		$id = $model->AddSubject($name,$description);
 		
 		if($id>0)
 		{
@@ -42,11 +42,11 @@ class c_Subject extends c_Router{
 
 		}
 	}
-	public function EditSubject($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditSubject($subject_id,$name,$description)
 	{
 
 		$model = new m_Subject();
-		$idd = $model->EditSubject($comment_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditSubject($subject_id,$name,$description);
 		
 		if($idd>0)
 		{

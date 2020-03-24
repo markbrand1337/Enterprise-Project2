@@ -17,11 +17,11 @@ class c_Comment extends c_Router{
 		$data = array('CommentList'=>$commentlist);
 		return $data;
 	}
-	public function AddComment($name,$subject_id,$user_id,$status)
+	public function AddComment($post_id,$content,$user_id,$created_at)
 	{
 
 		$model = new m_Comment();
-		$id = $model->AddComment($name,$subject_id,$user_id,$status);
+		$id = $model->AddComment($post_id,$content,$user_id,$created_at);
 		
 		if($id>0)
 		{
@@ -41,11 +41,11 @@ class c_Comment extends c_Router{
 
 		}
 	}
-	public function EditComment($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditComment($comment_id,$post_id,$content,$user_id,$created_at)
 	{
 
 		$model = new m_Comment();
-		$idd = $model->EditComment($comment_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditComment($comment_id,$post_id,$content,$user_id,$created_at);
 		
 		if($idd>0)
 		{

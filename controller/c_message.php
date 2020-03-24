@@ -18,11 +18,11 @@ class c_Message extends c_Router{
 		return $data;
 	}
 
-	public function AddMessage($name,$subject_id,$user_id,$status)
+	public function AddMessage($conversation_id,$content,$from_id,$to_id,$send_at)
 	{
-
+		$date = date();
 		$model = new m_Message();
-		$id = $model->AddMessage($name,$subject_id,$user_id,$status);
+		$id = $model->AddMessage($conversation_id,$content,$from_id,$to_id,$send_at);
 		
 		if($id>0)
 		{
@@ -42,7 +42,7 @@ class c_Message extends c_Router{
 
 		}
 	}
-	public function EditMessage($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditMessage($message_id,$conversation_id,$content,$from_id,$to_id,$send_at)
 	{
 
 		$model = new m_Message();

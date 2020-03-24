@@ -3,17 +3,49 @@ require_once("controller/c_router.php");
 include_once("model/m_user.php");
 class c_User extends c_Router{
 	public function getUser()
-	{
+	{	
+		
 		$muser= new m_User();
 		$userlist = $muser->getAllUser();
 		$data = array('UserList'=>$userlist);
 		$this->loadView('v_user', $data);
 	}
+	public function searchStudentByName($name)
+	{	
+		
+		$muser= new m_User();
+		$userlist = $muser->searchStudentByName($name);
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
+	
 
+	public function getAllStudentNotFromClass($class)
+	{	
+		
+		$muser= new m_User();
+		$userlist = $muser->getAllStudentNotFromClass($class);
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
 	public function getList()
 	{
 		$muser=new m_User();
 		$userlist = $muser->getAllUser();
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
+	public function getStudentList()
+	{
+		$muser=new m_User();
+		$userlist = $muser->getAllStudent();
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
+	public function getTutorList()
+	{
+		$muser=new m_User();
+		$userlist = $muser->getAllTutor();
 		$data = array('UserList'=>$userlist);
 		return $data;
 	}
@@ -22,6 +54,16 @@ class c_User extends c_Router{
 	{
 		
 		$this->loadView('v_login');
+	}
+	public function getAdd()
+	{
+		
+		$this->loadView('v_useradd');
+	}
+	public function getEdit()
+	{
+		
+		$this->loadView('v_useredit');
 	}
 	public function getSignUp()
 	{

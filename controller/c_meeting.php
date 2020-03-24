@@ -19,11 +19,11 @@ class c_Meeting extends c_Router{
 	}
 
 	
-	public function AddMeeting($name,$subject_id,$user_id,$status)
+	public function AddMeeting($meeting_date,$classroom_id,$status,$start_at,$end_at)
 	{
 
 		$model = new m_Meeting();
-		$id = $model->AddMeeting($name,$subject_id,$user_id,$status);
+		$id = $model->AddMeeting($meeting_date,$classroom_id,$status,$start_at,$end_at);
 		
 		if($id>0)
 		{
@@ -43,11 +43,11 @@ class c_Meeting extends c_Router{
 
 		}
 	}
-	public function EditMeeting($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$end_at)
 	{
 
 		$model = new m_Meeting();
-		$idd = $model->EditMeeting($comment_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$end_at);
 		
 		if($idd>0)
 		{

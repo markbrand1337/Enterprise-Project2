@@ -19,11 +19,11 @@ class c_Conversation extends c_Router{
 	}
 
 	
-	public function AddConversation($name,$subject_id,$user_id,$status)
+	public function AddConversation($user_one,$user_two)
 	{
 
 		$model = new m_Conversation();
-		$id = $model->AddConversation($name,$subject_id,$user_id,$status);
+		$id = $model->AddConversation($user_one,$user_two);
 		
 		if($id>0)
 		{
@@ -43,11 +43,11 @@ class c_Conversation extends c_Router{
 
 		}
 	}
-	public function EditConversation($comment_id,$name,$subject_id,$user_id,$status)
+	public function EditConversation($conversation_id,$user_one,$user_two)
 	{
 
 		$model = new m_Conversation();
-		$idd = $model->EditConversation($comment_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditConversation($conversation_id,$user_one,$user_two);
 		
 		if($idd>0)
 		{

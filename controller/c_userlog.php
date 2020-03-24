@@ -20,7 +20,10 @@ class c_UserLog extends c_Router{
 	 
 	public function AddUserLog($user_id)
 	{
-		$date = date();
+
+
+		$date = '02/07/2020 00:07:00';
+		$date = preg_replace('#(\d{2})/(\d{2})/(\d{4})\s(.*)#', '$3-$2-$1 $4', $date);
 		$model = new m_UserLog();
 		$id = $model->AddUserLog($user_id,$$date);
 		//$date = date('m/d/Y h:i:s a', time());
@@ -45,7 +48,7 @@ class c_UserLog extends c_Router{
 	}
 	public function EditUserLog($user_id)
 	{
-		$date = date();
+		$date = date("Y-m-d h:i:sa");
 		$model = new m_UserLog();
 		$idd = $model->EditUserLog($user_id,$date);
 		

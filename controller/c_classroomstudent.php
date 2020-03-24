@@ -4,26 +4,83 @@ include_once("model/m_classroomstudent.php");
 class c_ClassroomStudent extends c_Router{
 	public function getClassroomStudent()
 	{
-		$model =new m_Classroom();
-		$classroomStudentlist = $model->getAllClassroomStudent();
+		$model =new m_ClassroomStudent();
+		$classroomstudentlist = $model->getAllClassroomStudent();
 		$data = array('ClassroomStudentList'=>$classroomstudentlist);
 		$this->loadView('v_classroomstudent', $data);
 	}
 	public function getList()
 	{
-		$model =new m_Classroom();
-		$classroomStudentlist = $model->getAllClassroomStudent();
+		$model =new m_ClassroomStudent();
+		$classroomstudentlist = $model->getAllClassroomStudent();
 		$data = array('ClassroomStudentList'=>$classroomstudentlist);
 		return $data;
 	}
+	public function getStudentList($classroom_id)
+	{
+		$model =new m_ClassroomStudent();
+		$cstudentlist = $model->getAllClassroomStudent($classroom_id);
+		$data = array('CStudentList'=>$cstudentlist);
+		return $data;
+	}
+	public function getClassroomList($user_id)
+	{
+		$model =new m_ClassroomStudent();
+		$sclassroomlist = $model->getAllClassroomStudent($user_id);
+		$data = array('SClassroomList'=>$sclassroomlist);
+		return $data;
+	}
+
+	public function getAdd()
+	{
+		
+		$this->loadView('v_classroomstudentadd');
+	}
+	public function getAddBulk()
+	{
+		
+		$this->loadView('v_classroomstudentadd_bulk');
+	}
+	public function getEdit()
+	{
+		
+		$this->loadView('v_classroomstudentedit');
+	}
 
 
-	public function AddClassroomStudent($name,$subject_id,$user_id,$status)
+	public function AddClassroomStudent($user_id,$classroom_id)
 	{
 
 		$model = new m_ClassroomStudent();
-		$id = $model->AddClassroomStudent($name,$subject_id,$user_id,$status);
+		$id = $model->AddClassroomStudent($user_id,$classroom_id);
 		
+		if($id>0)
+		{
+
+			//reg is succ
+			$_SESSION['success'] ='add succeed!';
+			if(isset($_SESSION['error']))
+				unset($_SESSION['error']);
+			echo '<script> location.replace("classroom.php"); </script>';
+			
+		}
+		else
+		{
+			//fail
+			$_SESSION['error']='add fail';
+			echo '<script> location.replace("classroomstudent.php"); </script>';
+
+		}
+	}
+	public function AddClassroomStudentBulk($classroom_id,$user_id1,$user_id2,$user_id3,$user_id4,$user_id5)
+	{
+
+		$model = new m_ClassroomStudent();
+		$id1 = $model->AddClassroomStudent($user_id1,$classroom_id);
+		$id2 = $model->AddClassroomStudent($user_id2,$classroom_id);
+		$id3 = $model->AddClassroomStudent($user_id3,$classroom_id);
+		$id4 = $model->AddClassroomStudent($user_id4,$classroom_id);
+		$id5 = $model->AddClassroomStudent($user_id5,$classroom_id);
 		if($id>0)
 		{
 

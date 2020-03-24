@@ -17,13 +17,23 @@ class c_Classroom extends c_Router{
 		return $data;
 		
 	}
+	public function getAdd()
+	{
+		
+		$this->loadView('v_classroomadd');
+	}
+	public function getEdit()
+	{
+		
+		$this->loadView('v_classroomedit');
+	}
 
 
-	public function AddClassroom($name,$subject_id,$user_id,$status)
+	public function AddClassroom($name,$tutor_id,$status)
 	{
 
 		$model = new m_Classroom();
-		$id = $model->AddClassroom($name,$subject_id,$user_id,$status);
+		$id = $model->AddClassroom($name,$tutor_id,$status);
 		
 		if($id>0)
 		{
@@ -33,21 +43,21 @@ class c_Classroom extends c_Router{
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
 			//echo '<script> location.replace("index.php"); </script>';
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("classroom.php"); </script>';
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("classroom_add.php"); </script>';
 
 		}
 	}
-	public function EditClassroom($classroom_id,$name,$subject_id,$user_id,$status)
+	public function EditClassroom($classroom_id,$name,$tutor_id,$status)
 	{
 
 		$model = new m_Classroom();
-		$idd = $model->EditClassroom($classroom_id,$name,$subject_id,$user_id,$status);
+		$idd = $model->EditClassroom($classroom_id,$name,$tutor_id,$status);
 		
 		if($idd>0)
 		{
@@ -56,7 +66,7 @@ class c_Classroom extends c_Router{
 			$_SESSION['success'] ='EditClassroom succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom.php"); </script>';
 			
 		}
 		else
@@ -64,7 +74,7 @@ class c_Classroom extends c_Router{
 			print_r("fail c");
 			//fail
 			$_SESSION['error']='EditClasroom fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom.php"); </script>';
 
 		}
 	}
@@ -94,7 +104,7 @@ class c_Classroom extends c_Router{
 			$_SESSION['success'] ='DeleteUser succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom.php"); </script>';
 			
 		}
 		else
@@ -102,7 +112,7 @@ class c_Classroom extends c_Router{
 			
 			//fail
 			$_SESSION['error']='DeleteUser fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom.php"); </script>';
 
 		}
 	}
