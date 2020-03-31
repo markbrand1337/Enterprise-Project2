@@ -1,10 +1,10 @@
 <?php
 include_once("controller/c_router.php");
-include_once("model/m_message.php");
-class c_Message extends c_Router{
+include_once("model/m_meetingmessage.php");
+class c_MeetingMessage extends c_Router{
 	public function getMessage()
 	{
-		$model =new m_Message();
+		$model =new m_MeetingMessage();
 		$messagelist = $model->getAllMessage();
 		$data = array('MessageList'=>$messagelist);
 		$this->loadView('v_message', $data);
@@ -12,7 +12,7 @@ class c_Message extends c_Router{
 	 
 	 public function getList()
 	{
-		$model =new m_Message();
+		$model =new m_MeetingMessage();
 		$messagelist = $model->getAllMessage();
 		$data = array('MessageList'=>$messagelist);
 		return $data;
@@ -21,18 +21,18 @@ class c_Message extends c_Router{
 
 	public function getMessageList($id)
 	{
-		$model =new m_Message();
-		$messagelist = $model->getAllConversationMessage($id);
+		$model =new m_MeetingMessage();
+		$messagelist = $model->getAllMeetingMessage($id);
 		$data = array('MessageList'=>$messagelist);
 		return $data;
 	}
-	public function AddMessage($conversation_id,$content,$from_id,$to_id,$send_at)
+	public function AddMessage($id,$id2,$content,$from_id,$send_at)
 	{
 		$date = date();
-		$model = new m_Message();
-		$id = $model->AddMessage($conversation_id,$content,$from_id,$to_id,$send_at);
+		$model = new m_MeetingMessage();
+		$idd = $model->AddMessage($id,$content,$from_id,$send_at);
 		
-		if($id>0)
+		if($idd>0)
 		{
 
 			//reg is succ
@@ -40,20 +40,20 @@ class c_Message extends c_Router{
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
 			
-			echo '<script> location.replace("conversation.php?conv_id='.$conversation_id.'"); </script>';
+			echo '<script> location.replace("meeting_detail.php?id='.$id.'&id2='.$id2.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("conversation.php?conv_id='.$conversation_id.'"); </script>';
+			echo '<script> location.replace("meeting_detail.php?id='.$id.'&id2='.$id2.'"); </script>';
 		}
 	}
 	// public function EditMessage($message_id,$conversation_id,$content,$from_id,$to_id,$send_at)
 	// {
 
-	// 	$model = new m_Message();
+	// 	$model = new m_MeetingMessage();
 	// 	$idd = $model->EditMessage($comment_id,$name,$subject_id,$user_id,$status);
 		
 	// 	if($idd>0)
@@ -79,7 +79,7 @@ class c_Message extends c_Router{
 	
 	// public function getOneMessage($id)
 	// {
-	// 	$model = new m_Message();
+	// 	$model = new m_MeetingMessage();
 	// 	$onemessage = $model->getOneMessage($id);
 		
 	// 	$result = array( 'OneMessage' => $onemessage);
@@ -91,7 +91,7 @@ class c_Message extends c_Router{
 	public function DeleteMessage($id)
 	{
 
-		$model = new m_Message();
+		$model = new m_MeetingMessage();
 		$idd = $model->DeleteMessage($id);
 		
 		if($idd>0)

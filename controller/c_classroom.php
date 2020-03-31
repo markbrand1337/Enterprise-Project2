@@ -17,6 +17,14 @@ class c_Classroom extends c_Router{
 		return $data;
 		
 	}
+
+	public function getClassroomDetail($id)
+	{
+		$model =new m_Classroom();
+		$classroomlist = $model->getOneClassroom($id);
+		$data = array('ClassroomList'=>$classroomlist);
+		$this->loadView('v_classroom_detail', $data);
+	}
 	public function getAdd()
 	{
 		
@@ -29,11 +37,11 @@ class c_Classroom extends c_Router{
 	}
 
 
-	public function AddClassroom($name,$tutor_id,$status)
+	public function AddClassroom($name,$tutor_id,$note)
 	{
 
 		$model = new m_Classroom();
-		$id = $model->AddClassroom($name,$tutor_id,$status);
+		$id = $model->AddClassroom($name,$tutor_id,$note);
 		
 		if($id>0)
 		{
@@ -53,11 +61,11 @@ class c_Classroom extends c_Router{
 
 		}
 	}
-	public function EditClassroom($classroom_id,$name,$tutor_id,$status)
+	public function EditClassroom($classroom_id,$name,$tutor_id,$note)
 	{
 
 		$model = new m_Classroom();
-		$idd = $model->EditClassroom($classroom_id,$name,$tutor_id,$status);
+		$idd = $model->EditClassroom($classroom_id,$name,$tutor_id,$note);
 		
 		if($idd>0)
 		{

@@ -1,17 +1,19 @@
 <?php
 include_once("controller/c_classroom.php");
+$cuser = new c_User();
+$data = $cuser->getStudentList();
+$userlist = $data['UserList'];
 if(isset($_GET['id']) 
 	&&filter_var($_GET['id'],FILTER_VALIDATE_INT,array('min_range'=>1) ) 
 	){
 				//class id
 				$id=$_GET['id'];
-			print_r($id);
+			$data = $cuser->getAllStudentNotFromClass($id);
+		$userlist = $data['UserList'];
 			
 }
 
-$cuser = new c_User();
-$data = $cuser->getStudentList();
-$userlist = $data['UserList'];
+
 
 
 
@@ -54,12 +56,12 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
 					<select class="form-control form-control-lg border border-info" name="classroom_id" id="classroom_id">
 					<?php 
                     foreach($classroomlist as $class)
-                   {
+                   { if( $class->classroom_id == $id){
                     ?>
-                    <option value="<?=$class->classroom_id?>"><?=$class->classroom_id?> - <?=$class->name?></option>
+                    <option value="<?=$class->classroom_id?>" selected><?=$class->classroom_id?> - <?=$class->name?></option>
                      <?php
-                   }
-                     ?> 					
+                   } }
+                     ?> 						
 					</select>
 				</h4>
 								</div>
@@ -74,7 +76,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					

@@ -59,11 +59,11 @@ if(isset($_POST['register']))
 					<option value="1" selected="">Student</option>
 					<option value="2">Tutor</option>
 					<?php 
-					if(isset($_SESSION['role']))
+					if(isset($_SESSION['role'])){
 				              if($_SESSION['role'] == 0)
 				                {
-					echo '<option value="0">Staff</option>'
-				}
+					echo '<option value="0">Staff</option>';
+					} }
 					?>						
 					</select>
 								</div>				

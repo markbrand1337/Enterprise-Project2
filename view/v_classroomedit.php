@@ -11,8 +11,8 @@ if(isset($_GET['id'])
   ){
         $id=$_GET['id'];
        $cclassroom = new c_Classroom();
-       $data1 = $cclassroom->getOneClassroom($id);
-       $classroom = $data1['OneClassroom'];
+       $data = $cclassroom->getOneClassroom($id);
+       $classroom = $data['OneClassroom'];
      } 
 
 

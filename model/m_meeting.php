@@ -11,13 +11,21 @@ class m_Meeting extends DBconnect
 		return $meetinglist;
 	}
 
-	public function AddMeeting($meeting_date,$classroom_id,$status,$start_at,$end_at)
+	public function getAllClassMeeting($id)
+	{
+		$sql = "SELECT  * FROM tblmeeting WHERE classroom_id='$id';";
+		$this->setQuery($sql);
+		$meetinglist = $this->getAllRows(array($id));
+		return $meetinglist;
+	}
+
+	public function AddMeeting($meeting_date,$classroom_id,$note)
 		 {
 		 	 
-		 	$sql = "INSERT INTO tblmeeting(meeting_date,classroom_id,status,start_at,end_at) values (?,?,?,?,?);";
+		 	$sql = "INSERT INTO tblmeeting(meeting_date,classroom_id,note) values (?,?,?);";
 		 	$this->setQuery($sql);
 		  
-		 	$result = $this->execute(array($meeting_date,$classroom_id,$status,$start_at,$end_at));
+		 	$result = $this->execute(array($meeting_date,$classroom_id,$note));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -26,13 +34,13 @@ class m_Meeting extends DBconnect
 		 		return false;
 		 }
 
-public function EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$end_at)
+public function EditMeeting($id,$meeting_date,$classroom_id,$note,$start_at,$end_at)
 		 {
 		 	 
-		 	$sql = "UPDATE tblmeeting SET meeting_date = '$meeting_date',classroom_id = '$classroom_id' ,status = '$status',start_at = '$start_at', end_at = '$end_at' where id='$id' ;";
+		 	$sql = "UPDATE tblmeeting SET meeting_date = '$meeting_date',classroom_id = '$classroom_id' ,note = '$note',note = '$note', end_at = '$end_at' where id='$id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($id,$meeting_date,$classroom_id,$status,$start_at,$end_at));
+		 	$result = $this->execute(array($id,$meeting_date,$classroom_id,$note,$start_at,$end_at));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -40,6 +48,34 @@ public function EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$e
 		 	else
 		 		return false;
 		 }
+		 public function StartMeeting($id,$start_at)
+		 {
+		 	 
+		 	$sql = "UPDATE  start_at = '$start_at' where id='$id' ;";
+		 	$this->setQuery($sql);
+		 	 
+		 	$result = $this->execute(array($id,$start_at));
+		 	if($result)
+		 	{
+		 		return $this->getLastInserted();
+		 	}
+		 	else
+		 		return false;
+		 }	
+public function EndMeeting($id,$end_at)
+		 {
+		 	 
+		 	$sql = "UPDATE  end_at = '$end_at' where id='$id' ;";
+		 	$this->setQuery($sql);
+		 	 
+		 	$result = $this->execute(array($id,$end_at));
+		 	if($result)
+		 	{
+		 		return $this->getLastInserted();
+		 	}
+		 	else
+		 		return false;
+		 }		 
 
 	public function DeleteMeeting($id)
 		 {
@@ -57,7 +93,7 @@ public function EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$e
 		 }
 	public function getOneMeeting($id)
 			 {
-			 	$sql = "SELECT  meeting_date,classroom_id,status,start_at,end_at FROM tblmeeting WHERE id='$id';";
+			 	$sql = "SELECT  meeting_date,classroom_id,note,start_at,end_at FROM tblmeeting WHERE id='$id';";
 			 	$this->setQuery($sql);
 			 	return $this->getOneRow(array($id));
 			 }

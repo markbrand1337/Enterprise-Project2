@@ -61,14 +61,14 @@ class c_ClassroomStudent extends c_Router{
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("classroom.php"); </script>';
+			echo '<script> location.replace("classroom.php?id='.$classroom_id.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("classroomstudent.php"); </script>';
+			echo '<script> location.replace("classroomstudent.php?id='.$classroom_id.'"); </script>';
 
 		}
 	}
@@ -81,21 +81,21 @@ class c_ClassroomStudent extends c_Router{
 		$id3 = $model->AddClassroomStudent($user_id3,$classroom_id);
 		$id4 = $model->AddClassroomStudent($user_id4,$classroom_id);
 		$id5 = $model->AddClassroomStudent($user_id5,$classroom_id);
-		if($id>0)
+		if($id1>0 && $id2>0 && $id3>0 && $id4>0 && $id5>0)
 		{
 
 			//reg is succ
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("classroom.php"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("classroom.php"); </script>';
 
 		}
 	}

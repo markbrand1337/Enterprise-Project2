@@ -460,7 +460,7 @@
 
 						<div class="single_testimonial">
 							<div class="testimonial_head">
-								<img src="img/quote.png" alt="">
+								<img src="edusmart/img/quote.png" alt="">
 								<h4>Fanny Spencer</h4>
 								<div class="review">
 									<i class="fa fa-star"></i>

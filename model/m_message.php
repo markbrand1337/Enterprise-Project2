@@ -10,6 +10,13 @@ class m_Message extends DBconnect
 		$messagelist = $this->getAllRows();
 		return $messagelist;
 	}
+	public function getAllConversationMessage($id)
+	{
+		$sql = "SELECT  * FROM tblmessage WHERE conversation_id='$id';";
+		$this->setQuery($sql);
+		$conversationlist = $this->getAllRows(array($id));
+		return $conversationlist;
+	}
 
 	public function AddMessage($conversation_id,$content,$from_id,$to_id,$send_at)
 		 {

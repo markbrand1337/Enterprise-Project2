@@ -46,7 +46,7 @@ public function EditPost($post_id,$content)
 		 	$sql = "UPDATE tblpost SET content = '$content' where post_id='$post_id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($post_id,$content);
+		 	$result = $this->execute(array($post_id,$content));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();

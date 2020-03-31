@@ -27,7 +27,13 @@ class m_ClassroomStudent extends DBconnect
 
 	public function AddClassroomStudent($user_id,$classroom_id)
 		 {
-		 	 
+		 	// $sql1 = "SELECT  count(*) as total FROM tblclassroomstudent WHERE user_id='$user_id' and classroom_id='$classroom_id';";
+		 	$sql2= "SELECT  *  FROM tblclassroomstudent WHERE user_id='$user_id' and classroom_id='$classroom_id';";
+		 	 $this->setQuery($sql1);
+		 	 $res = $this->getAllRows(array($user_id,$classroom_id));
+		 	 $count =mysqli_num_rows($res);
+		 	 if($count < 1){
+
 		 	$sql = "INSERT INTO tblclassroomstudent(user_id,classroom_id) values (?,?);";
 		 	$this->setQuery($sql);
 		  
@@ -38,6 +44,9 @@ class m_ClassroomStudent extends DBconnect
 		 	}
 		 	else
 		 		return false;
+
+		 	} else return false;
+
 		 }
 
 // public function EditClassroomStudent($user_id,$classroom_id)

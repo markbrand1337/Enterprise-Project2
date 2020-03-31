@@ -37,10 +37,21 @@ class m_User extends DBconnect
 		$studentlist = $this->getAllRows();
 		return $studentlist;
 	}
+	public function getOtherUser($id)
+	{
+		$sql = "SELECT * FROM tbluser where user_id != ?";
+		$this->setQuery($sql);
+		$studentlist = $this->getAllRows(array($id));
+		return $studentlist;
+	}
 	public function getAllStudentNotFromClass($class)
 	{
-		$sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where classroom_id != '$class'";
-		$this->setQuery($sql);
+		$sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where c.classroom_id != '$class'";
+		$sql1="SELECT * FROM tbluser where user_id NOT IN (SELECT user_id from tblclassroomstudent where classroom_id = ? )";
+
+
+
+		$this->setQuery($sql1);
 		$studentlist = $this->getAllRows(array($class));
 		return $studentlist;
 	}

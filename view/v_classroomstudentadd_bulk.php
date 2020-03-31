@@ -63,7 +63,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($classroomlist as $class)
                    { if( $class->classroom_id == $id){
                     ?>
-                    <option value="<?=$class->classroom_id?> selected"><?=$class->classroom_id?> - <?=$class->name?></option>
+                    <option value="<?=$class->classroom_id?>" selected><?=$class->classroom_id?> - <?=$class->name?></option>
                      <?php
                    } }
                      ?> 					
@@ -83,7 +83,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					
@@ -99,7 +99,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					
@@ -116,7 +116,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					
@@ -133,7 +133,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					
@@ -150,7 +150,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->first_name?> <?=$student->last_name?></option>
+                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
                      <?php
                    }
                      ?> 					

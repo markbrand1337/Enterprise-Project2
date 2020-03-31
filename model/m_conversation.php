@@ -10,6 +10,13 @@ class m_Conversation extends DBconnect
 		$conversationlist = $this->getAllRows();
 		return $conversationlist;
 	}
+	public function getAllUserConversation($id)
+	{
+		$sql = "SELECT  * FROM tblconversation WHERE user_one='$id' or user_two='$id';";
+		$this->setQuery($sql);
+		$conversationlist = $this->getAllRows(array($id));
+		return $conversationlist;
+	}
 
 	public function AddConversation($user_one,$user_two)
 		 {

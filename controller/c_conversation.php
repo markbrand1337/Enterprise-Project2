@@ -17,6 +17,13 @@ class c_Conversation extends c_Router{
 		$data = array('ConversationList'=>$conversationlist);
 		return $data;
 	}
+	public function getConversationList($id)
+	{
+		$model =new m_Conversation();
+		$conversationlist = $model->getAllUserConversation($id);
+		$data = array('ConversationList'=>$conversationlist);
+		return $data;
+	}
 
 	
 	public function AddConversation($user_one,$user_two)

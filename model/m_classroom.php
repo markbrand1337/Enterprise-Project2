@@ -11,13 +11,13 @@ class m_Classroom extends DBconnect
 		return $classroomlist;
 	}
 
-	public function AddClassroom($name,$tutor_id,$status)
+	public function AddClassroom($name,$tutor_id,$note)
 		 {
 		 	 
-		 	$sql = "INSERT INTO tblclassroom(name,tutor_id,status) values (?,?,?);";
+		 	$sql = "INSERT INTO tblclassroom(name,tutor_id,note) values (?,?,?);";
 		 	$this->setQuery($sql);
 		  
-		 	$result = $this->execute(array($name,$tutor_id,$status));
+		 	$result = $this->execute(array($name,$tutor_id,$note));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -26,13 +26,13 @@ class m_Classroom extends DBconnect
 		 		return false;
 		 }
 
-public function EditClassroom($classroom_id,$name,$tutor_id,$status)
+public function EditClassroom($classroom_id,$name,$tutor_id,$note)
 		 {
 		 	 
-		 	$sql = "UPDATE tblclassroom SET name = '$name'tutor_id = '$tutor_id', status = '$status' where classroom_id='$classroom_id' ;";
+		 	$sql = "UPDATE tblclassroom SET name = '$name'tutor_id = '$tutor_id', note = '$note' where classroom_id='$classroom_id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($classroom_id,$name,$tutor_id,$status));
+		 	$result = $this->execute(array($classroom_id,$name,$tutor_id,$note));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -57,7 +57,7 @@ public function EditClassroom($classroom_id,$name,$tutor_id,$status)
 		 }
 	public function getOneClassroom($classroom_id)
 			 {
-			 	$sql = "SELECT  name,tutor_id,status FROM tblclassroom WHERE classroom_id='$classroom_id';";
+			 	$sql = "SELECT  classroom_id,name,tutor_id,note FROM tblclassroom WHERE classroom_id='$classroom_id';";
 			 	$this->setQuery($sql);
 			 	return $this->getOneRow(array($classroom_id));
 			 }

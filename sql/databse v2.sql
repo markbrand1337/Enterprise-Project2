@@ -191,6 +191,27 @@ CONSTRAINT `FK_42` FOREIGN KEY `fkIdx_42` (`classroom_id`) REFERENCES `tblClassr
 );
 
 
+-- ************************************** `tblMeetingMessage`
+
+CREATE TABLE `tblMeetingMessage`
+(
+ `message_id` int NOT NULL  AUTO_INCREMENT,
+ `id`         int NOT NULL ,
+ `content`    varchar(255) NOT NULL ,
+ `send_at`    datetime NOT NULL ,
+ `from_id`    int NOT NULL ,
+
+PRIMARY KEY (`message_id`),
+KEY `fkIdx_144` (`id`),
+CONSTRAINT `FK_144` FOREIGN KEY `fkIdx_144` (`id`) REFERENCES `tblMeeting` (`id`)
+);
+
+
+
+
+
+
+
 
 
 

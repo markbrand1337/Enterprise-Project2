@@ -1,21 +1,27 @@
 <?php
+include_once("controller/c_classroom.php");
 // $controller = new c_ClassroomStudent();
 // $data = $controller->getList();
 $classroomlist = $data['ClassroomStudentList'];
+$id = 0;
 
 $cuser = new c_User();
-$data2 = $cuser->getTutorList();
-$userlist = $data2['UserList'];
+$data = $cuser->getList();
+$userlist = $data['UserList'];
 
+
+$controller = new c_Classroom();
+$data = $controller->getList();
+$classlist = $data['ClassroomList'];
 if(isset($_GET['id']) 
 	&&filter_var($_GET['id'],FILTER_VALIDATE_INT,array('min_range'=>1) ) 
 	){
 				//class id
 				$id=$_GET['id'];
 			$controller = new c_ClassroomStudent();
-			$data1 = $controller->getStudentList($id);
-			$classroomlist = $data1['CStudentList'];
-			print_r("getStudentList");
+			$data = $controller->getStudentList($id);
+			$classroomlist = $data['CStudentList'];
+			// print_r("getStudentList");
 			
 }
  else if(isset($_GET['id2']) 
@@ -24,9 +30,9 @@ if(isset($_GET['id'])
 				//user_id
 				$id=$_GET['id2'];
 			$controller = new c_ClassroomStudent();
-			$data1 = $controller->getClassroomList($id);
-			$classroomlist = $data1['SClassroomList'];
-			print_r("getClassroomList");
+			$data = $controller->getClassroomList($id);
+			$classroomlist = $data['SClassroomList'];
+			// print_r("getClassroomList");
 }
 
 
@@ -38,16 +44,19 @@ if(isset($_GET['id'])
 <div class="container">
 	
 <h2 class="pt-4 mb-5  text-center">ClassroomStudent List</h2>
-
+<?php if($id !=0){?>
 <div class="row py-3">
-  <a href="classroom_add.php" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12 float-right"><h4 class="text-white">Add New Class</h4></a>
+  <?php echo '<a href="classroomstudent_add.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a>';?>
+  <!-- <a href="classroomstudent_add.php?id=$id" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a> -->
+  <?php echo '<a href="classroomstudent_add_bulk.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a>';?>
+  <!-- <a href="classroomstudent_add_bulk.php" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a> -->
 </div>
-
+<?php }?>
 <div class="row">
               <table id="" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Classroom Id</th>
+                  <th>Classroom</th>
                   <th>Student</th>
                   
                   <th>Action</th>
@@ -61,7 +70,14 @@ if(isset($_GET['id'])
                {
                ?>
                 <tr>
-                  <td><?=$class->classroom_id?></td>
+                  <!-- <td><?=$class->classroom_id?></td> -->
+                  <?php foreach($classlist as $c){
+                    if($c->classroom_id == $class->classroom_id){
+                    ?>
+                  <td><?=$c->name?></td>
+              <?php }} ?>
+
+
                   <?php foreach($userlist as $user){
                   	if($user->user_id == $class->user_id){
                   	?>
@@ -83,7 +99,7 @@ if(isset($_GET['id'])
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>Classroom Id</th>
+                  <th>Classroom</th>
                   <th>Student</th>
                   
                   <th>Action</th>

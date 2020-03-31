@@ -4,6 +4,16 @@ if(!isset($_SESSION))
     { 
         session_start(); 
     } 
+    if(isset($_GET['logout']) 
+	
+	){
+				unset($_SESSION['user_name']);
+			 	session_unset();
+			 	setcookie(session_name(), '', 100);
+				session_destroy();
+			 	$_SESSION = array();
+			
+	}
 
 ?>
 <!DOCTYPE html>
@@ -39,14 +49,14 @@ if(!isset($_SESSION))
 					<div class="col-lg-6 col-sm-6 col-4 header-top-left">
 						
 						<div>
-							<?php if(isset($_SESSION['user_name'])) { ?><span class="text">
+							<?php if(isset($_SESSION['user_name'])) { ?>
 								<span class="text">Hello <?=$_SESSION['user_name']?></span>
-							</span><?php } ?>
+							<?php } ?>
 						</div>
 					</div>
 					<div class="col-lg-6 col-sm-6 col-8 header-top-right">
 						<?php if(isset($_SESSION['user_name'])) { ?>
-						<a href="#" class="text-uppercase">Logout</a>
+						<a href="index.php?logout=1" class="text-uppercase">Logout</a>
 							<?php }else{ ?>
 			              <a href="signup.php" class="text-uppercase">Signup</a>
 			               <a href="login.php" class="text-uppercase">Login</a>
@@ -57,7 +67,7 @@ if(!isset($_SESSION))
 		</div>
 
 		<div class="main_menu">
-			<div class="search_input" id="search_input_box">
+			<!-- <div class="search_input" id="search_input_box">
 				<div class="container">
 					<form class="d-flex justify-content-between" method="" action="">
 						<input type="text" class="form-control" id="search_input" placeholder="Search Here">
@@ -65,12 +75,12 @@ if(!isset($_SESSION))
 						<span class="lnr lnr-cross" id="close_search" title="Close Search"></span>
 					</form>
 				</div>
-			</div>
+			</div> -->
 
 			<nav class="navbar navbar-expand-lg navbar-light">
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
-					<a class="navbar-brand logo_h" href="index.html"><img src="edusmart/img/logo.png" alt=""></a>
+					<a class="navbar-brand logo_h" href="index.php"><img src="public/img/logo.png" alt=""></a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
 					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
@@ -81,22 +91,22 @@ if(!isset($_SESSION))
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="about-us.html">About</a></li>
+							<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Pages</a>
+								 aria-expanded="false">Classroom</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="#">Courses</a></li>
+									<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
 									<li class="nav-item"><a class="nav-link" href="#">Course Details</a></li>
 									<li class="nav-item"><a class="nav-link" href="#">Elements</a></li>
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Blog</a>
+								 aria-expanded="false">Personal</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="blog.html">Blog</a></li>
-									<li class="nav-item"><a class="nav-link" href="single-blog.html">Blog Details</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="conversation.php">Messages</a></li>
 								</ul>
 							</li>
 							<?php
@@ -221,6 +231,7 @@ if(!isset($_SESSION))
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
 	<script src="edusmart/js/gmaps.min.js"></script>
 	<script src="edusmart/js/theme.js"></script>
+	<script src="public/js/message.js"></script>
 </body>
 
 </html>

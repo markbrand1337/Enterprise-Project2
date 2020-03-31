@@ -17,13 +17,35 @@ class c_Meeting extends c_Router{
 		$data = array('MeetingList'=>$meetinglist);
 		return $data;
 	}
+	public function getAdd()
+	{
+		
+		$this->loadView('v_meetingadd');
+	}
+	public function getMeetingDetail()
+	{
+		
+		$this->loadView('v_meeting_detail');
+	}
+	public function getEdit()
+	{
+		
+		$this->loadView('v_meetingedit');
+	}
 
+	public function getAllClassMeeting($id)
+	{
+		$model =new m_Meeting();
+		$meetinglist = $model->getAllClassMeeting($id);
+		$data = array('MeetingList'=>$meetinglist);
+		return $data;
+	}
 	
-	public function AddMeeting($meeting_date,$classroom_id,$status,$start_at,$end_at)
+	public function AddMeeting($meeting_date,$classroom_id,$note)
 	{
 
 		$model = new m_Meeting();
-		$id = $model->AddMeeting($meeting_date,$classroom_id,$status,$start_at,$end_at);
+		$id = $model->AddMeeting($meeting_date,$classroom_id,$note);
 		
 		if($id>0)
 		{
@@ -32,22 +54,22 @@ class c_Meeting extends c_Router{
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("meeting_add.php?id='.$classroom_id.'"); </script>';
 
 		}
 	}
-	public function EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$end_at)
+	public function EditMeeting($id,$meeting_date,$classroom_id,$note,$start_at,$end_at)
 	{
 
 		$model = new m_Meeting();
-		$idd = $model->EditMeeting($id,$meeting_date,$classroom_id,$status,$start_at,$end_at);
+		$idd = $model->EditMeeting($id,$meeting_date,$classroom_id,$note,$start_at,$end_at);
 		
 		if($idd>0)
 		{
@@ -56,7 +78,7 @@ class c_Meeting extends c_Router{
 			$_SESSION['success'] ='Edit succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
 			
 		}
 		else
@@ -64,7 +86,7 @@ class c_Meeting extends c_Router{
 			print_r("fail c");
 			//fail
 			$_SESSION['error']='Edit fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
 
 		}
 	}
