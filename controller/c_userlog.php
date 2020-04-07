@@ -25,7 +25,7 @@ class c_UserLog extends c_Router{
 		// $date = '02/07/2020 00:07:00';
 		// $date = preg_replace('#(\d{2})/(\d{2})/(\d{4})\s(.*)#', '$3-$2-$1 $4', $date);
 		$model = new m_UserLog();
-		$id = $model->AddUserLog($user_id,$$date);
+		$id = $model->AddUserLog($user_id);
 		//$date = date('m/d/Y h:i:s a', time());
 		
 		if($id>0)
@@ -50,7 +50,7 @@ class c_UserLog extends c_Router{
 	{
 		$date = date("Y-m-d H:i:s");
 		$model = new m_UserLog();
-		$idd = $model->EditUserLog($user_id,$date);
+		$idd = $model->EditUserLog($user_id);
 		
 		if($idd>0)
 		{
@@ -81,7 +81,7 @@ class c_UserLog extends c_Router{
 		$oneuserlog = $model->getOneUserLog($id);
 		
 		$result = array( 'OneUserLog' => $oneuserlog);
-		return $result;
+		return $oneuserlog;
 	}
 	
 	

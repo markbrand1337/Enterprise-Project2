@@ -57,7 +57,7 @@ if( isset($_POST['name']) && isset($_POST['tutor_id']) && isset($_POST['status']
 				</h4>
 								</div>
 				<h3 class="pt-4 text-dark card-title">Notes</h3><h4 class=" bg-danger text-white"></h4>
-				  <input type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="status" required="required" pattern="[A-Za-z0-9 ]{3,40}" placeholder="Only accept alphabetic, numeric characters and spaces."/>			
+				  <input type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="status" required="required" pattern="^.{1,40}$" placeholder="Maximum of 40 characters."/>			
 				  <div class="pt-3">
 						<h4><input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12 mb-sm-3 col-md-4 float-right" value="Submit" name="submit"></h4>
 						<h4><a href="classroom.php" class="genric-btn  circle px-5 py-1 col-sm-12 mb-sm-3 col-md-4 float-left">Back</a></h4>

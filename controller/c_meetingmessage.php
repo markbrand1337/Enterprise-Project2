@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_meetingmessage.php");
+include_once("model/m_userlog.php");
 class c_MeetingMessage extends c_Router{
 	public function getMessage()
 	{
@@ -31,7 +32,8 @@ class c_MeetingMessage extends c_Router{
 		$date = date();
 		$model = new m_MeetingMessage();
 		$idd = $model->AddMessage($id,$content,$from_id,$send_at);
-		
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($from_id);
 		if($idd>0)
 		{
 

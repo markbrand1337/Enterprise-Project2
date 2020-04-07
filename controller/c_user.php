@@ -2,6 +2,7 @@
 require_once("controller/c_router.php");
 include_once("model/m_user.php");
 include_once("model/m_classroom.php");
+include_once("model/m_userlog.php");
 class c_User extends c_Router{
 	public function getUser()
 	{	
@@ -26,6 +27,22 @@ class c_User extends c_Router{
 		
 		$muser= new m_User();
 		$userlist = $muser->getAllStudentNotFromClass($class);
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
+	public function getAvailableStudent()
+	{	
+		
+		$muser= new m_User();
+		$userlist = $muser->getAvailableStudent();
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
+	public function getAvailableTutor()
+	{	
+		
+		$muser= new m_User();
+		$userlist = $muser->getAvailableTutor();
 		$data = array('UserList'=>$userlist);
 		return $data;
 	}
@@ -64,6 +81,12 @@ class c_User extends c_Router{
 		
 		$this->loadView('v_login');
 	}
+	public function getDashboard()
+	{
+		
+		$this->loadView('v_dashboard');
+	}
+
 	public function getAdd()
 	{
 		
@@ -195,9 +218,11 @@ class c_User extends c_Router{
 	}
 	public function register($first_name,$last_name,$email,$password,$role)
 	{
-
+		
 		$muser = new m_User();
 		$id = $muser->register($first_name,$last_name,$email,$password,$role);
+		$muserlog=new m_UserLog();
+		$log =$muserlog->AddUserLog($id);
 		// $id = 1;
 		if($id>0)
 		{

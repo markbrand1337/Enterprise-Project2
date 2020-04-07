@@ -2,9 +2,31 @@
 include_once("controller/c_meeting.php");
 include_once("controller/c_meetingmessage.php");
 include_once("controller/c_classroom.php");
+include_once("controller/c_userlog.php");
+
+$cuserlog = new c_UserLog();
+
+function updateactivity(){
+	if(isset($_SESSION['user_id'])){
+		$user_id= $_SESSION['user_id'];
+		$cuserlog = new c_UserLog();
+		$res = $cuserlog->getOneUserLog($user_id);
+			if($res == null){
+				$cuserlog->AddUserLog($user_id);
+				
+			} else{
+				$cuserlog->EditUserLog($user_id);
+				
+			}
+	}
+	
+}
+//updateactivity();
 $cmeet = new c_Meeting();
 $cmmess = new c_MeetingMessage();
 $cuser = new c_User();
+$id = 0;
+$id =0;
 if(isset($_GET['id']) 
 	&&filter_var($_GET['id'],FILTER_VALIDATE_INT,array('min_range'=>1) ) 
 	){
@@ -22,6 +44,9 @@ if(isset($_SESSION['user_id'])){
 	$data = $cmmess->getMessageList($id);
 	$messagelist = $data['MessageList'];
 	//print_r($meeting);
+}else{
+    //if user not logged in
+     echo '<script> location.replace("login.php"); </script>';
 }
 }
 if(isset($_GET['id2']) 
@@ -35,6 +60,11 @@ if(isset($_GET['id2'])
 		
 
 }
+if($id==0 && $id2==0) {
+        //id not exist
+        echo '<script> location.replace("classroom.php"); </script>';
+    }
+
 if(isset($_POST['send']))
 { 
 if(isset($_POST['message']))
@@ -44,6 +74,7 @@ if(isset($_POST['message']))
 		$send_at = date("Y-m-d H:i:s");
 
 		$cmmess->AddMessage($id,$id2,$content,$from_id,$send_at);
+		updateactivity();
 	}
 }
   ?>
@@ -63,7 +94,7 @@ if(isset($_POST['message']))
                             <div class="page_link">
                                 <a href="index.php">Home</a>
                                 <a href="classroom.php">Classroom List</a>
-                                <?php echo '<a href="classroom_detail.php?id='.$id.'">'.$classroom->name.'</a>'; ?>
+                                <?php echo '<a href="classroom_detail.php?id='.$classroom->classroom_id.'">'.$classroom->name.'</a>'; ?>
                                 <?php echo '<a href="#">Meeting Detail</a>'; ?>
                             </div>
                         </div>
@@ -105,9 +136,9 @@ if(isset($_POST['message']))
 		                        </div>
 		                        <div class="">
 		                            <?php if($meeting->start_at == null) {
-		                            	echo '<a href="#" class="btn btn-primary">Start</a>';
-		                            } else {
-		                            	echo '<a href="#" class="btn btn-primary">End</a>';
+		                            	echo '<a href="meeting_start.php?id='.$meeting->id.'&id2='.$meeting->classroom_id.'" class="btn btn-primary">Start</a>';
+		                            } else  {
+		                            	echo '<a href="meeting_end.php?id='.$meeting->id.'&id2='.$meeting->classroom_id.'" class="btn btn-primary">End</a>';
 		                            } ?>
 
 
@@ -168,7 +199,7 @@ if(isset($_POST['message']))
 		<div class="h-20 pt-3">
 	<?php if($meeting->end_at == null) { ?>
 	<form action="#" method="post" class="">
-				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="message" required="required"></textarea>
+				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="message" pattern="^.{1,200}$" required="required"></textarea>
 				<input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12  col-md-12 float-right" value="Send" name="send">
 			</form>
 

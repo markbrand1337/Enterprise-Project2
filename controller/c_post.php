@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_post.php");
+include_once("model/m_userlog.php");
 class c_Post extends c_Router{
 	public function getPost()
 	{
@@ -17,13 +18,41 @@ class c_Post extends c_Router{
 		$data = array('PostList'=>$postlist);
 		return $data;
 	}
-
-	public function AddPost($content,$user_id,$in_class,$created_at)
+	public function getAllClassPost($id)
 	{
-
-		$model = new m_Post();
-		$id = $model->AddPost($content,$user_id,$created_at);
+		$model =new m_Post();
+		$postlist = $model->getAllClassPost($id);
+		$data = array('PostList'=>$postlist);
+		return $data;
+	}
+	public function getAllUserPost($id)
+	{
+		$model =new m_Post();
+		$postlist = $model->getAllUserPost($id);
+		$data = array('PostList'=>$postlist);
+		return $data;
+	}
+	public function getAdd()
+	{
 		
+		$this->loadView('v_postadd');
+	}
+	public function getEdit()
+	{
+		
+		$this->loadView('v_postedit');
+	}
+	public function getPostDetail()
+	{
+		$this->loadView('v_post_detail');
+	}
+	public function AddPost($content,$user_id,$in_class)
+	{
+		$date = date("Y-m-d H:i:s");
+		$model = new m_Post();
+		$id = $model->AddPost($content,$user_id,$in_class,$date);
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($user_id);
 		if($id>0)
 		{
 
@@ -31,14 +60,14 @@ class c_Post extends c_Router{
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			//echo '<script> location.replace("index.php"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			//echo '<script> location.replace("index.php"); </script>';
 
 		}
 	}
@@ -47,7 +76,8 @@ class c_Post extends c_Router{
 
 		$model = new m_Post();
 		$idd = $model->EditPost($post_id,$content);
-		
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($user_id);
 		if($idd>0)
 		{
 			 print_r("succ c");

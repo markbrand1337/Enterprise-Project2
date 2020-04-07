@@ -34,6 +34,22 @@ if(isset($_GET['id'])
 			$classroomlist = $data['SClassroomList'];
 			// print_r("getClassroomList");
 }
+if(isset($_SESSION['user_id']))
+{
+    if(isset($_SESSION['role']))
+    {
+    $role = $_SESSION['role'];
+     }
+    $user_id= $_SESSION['user_id'];
+    // if($role == 0 || $role == 2){
+    //   //staff 
+    //   $data = $cclass->getList();
+    //   $classroomlist = $data['ClassroomList'];
+    // } elseif ($role == 1) {
+    //   $data = $cclass->getAllStudentClassroom($user_id);
+    //   $classroomlist = $data['ClassroomList'];
+    // }
+}
 
 
   ?>
@@ -46,10 +62,15 @@ if(isset($_GET['id'])
 <h2 class="pt-4 mb-5  text-center">ClassroomStudent List</h2>
 <?php if($id !=0){?>
 <div class="row py-3">
+  <?php if($role == 0 || $role ==2){ ?>
   <?php echo '<a href="classroomstudent_add.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a>';?>
+  <?php } ?>
+  <?php if($role == 0){ ?>
+  
   <!-- <a href="classroomstudent_add.php?id=$id" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a> -->
   <?php echo '<a href="classroomstudent_add_bulk.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a>';?>
   <!-- <a href="classroomstudent_add_bulk.php" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a> -->
+<?php } ?>
 </div>
 <?php }?>
 <div class="row">
@@ -89,8 +110,18 @@ if(isset($_GET['id'])
                  
 
                   <td>
-                                        <!-- <a href="classroomstudent_edit.php?id=<?=$class->classroom_id?>&id2=<?=$class->user_id?>"><i class="fa fa-fw fa-edit" style="color:#2D67EA; font-size:20px;"></i></a> -->
-                    <a href="classroomstudent_delete.php?id=<?=$class->classroom_id?>&id2=<?=$class->user_id?>" onclick="return confirm('Are you sure you want to delete this?'); "><i class="fa fa-fw fa-trash" style="color:#EF2D1E; font-size:20px;"></i></a>
+                    <?php if($user_id != $user->user_id){ ?>
+                    <?php 
+                    echo '<a href="conversation_create.php?id='.$user_id.'&id2='.$user->user_id.'"><i class="fa fa-fw fa-comments" title=" Start sending messages to this User" style="color:#2D67EA; font-size:20px;"></i></a> ';
+
+
+                    ?>
+                    <?php } ?>
+                    
+                   <!--  <a href="conversation_create.php?id=<?=$class->classroom_id?>&id2=<?=$class->user_id?>"><i class="fa fa-fw fa-edit" style="color:#2D67EA; font-size:20px;"></i></a>  -->
+                   <?php if($role == 0){ ?>
+                    <a href="classroomstudent_delete.php?id=<?=$class->classroom_id?>&id2=<?=$class->user_id?>" title="Delete this?" onclick="return confirm('Are you sure you want to delete this?'); "><i class="fa fa-fw fa-trash" style="color:#EF2D1E; font-size:20px;"></i></a>
+                  <?php } ?>
                   </td>
                 </tr>
                <?php

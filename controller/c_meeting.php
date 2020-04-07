@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_meeting.php");
+include_once("model/m_userlog.php");
 class c_Meeting extends c_Router{
 	public function getMeeting()
 	{
@@ -89,6 +90,58 @@ class c_Meeting extends c_Router{
 			 echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
 
 		}
+	}
+	public function StartMeeting($id)
+	{
+		$date = date("Y-m-d H:i:s");
+		$model = new m_Meeting();
+		$idd = $model->StartMeeting($id,$date);
+		
+		if($idd>0)
+		{
+			 //print_r("succ c");
+		 	//reg is succ
+			$_SESSION['success'] ='Edit succeed!';
+			if(isset($_SESSION['error']))
+				unset($_SESSION['error']);
+			 //echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
+			
+		}
+		else
+		{	
+			//print_r("fail c");
+			//fail
+			$_SESSION['error']='Edit fail';
+			 //echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
+
+		}
+		return $idd;
+	}
+	public function EndMeeting($id)
+	{
+		$date = date("Y-m-d H:i:s");
+		$model = new m_Meeting();
+		$idd = $model->EndMeeting($id,$date);
+		
+		if($idd>0)
+		{
+			 //print_r("succ c");
+		 	//reg is succ
+			$_SESSION['success'] ='Edit succeed!';
+			if(isset($_SESSION['error']))
+				unset($_SESSION['error']);
+			 //echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
+			
+		}
+		else
+		{	
+			//print_r("fail c");
+			//fail
+			$_SESSION['error']='Edit fail';
+			 //echo '<script> location.replace("classroom_detail.php?id='.$classroom_id.'"); </script>';
+
+		}
+
 	}
 
 	

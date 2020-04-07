@@ -23,7 +23,7 @@ if(!isset($_SESSION))
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<link rel="icon" href="edusmart/img/favicon.png" type="image/png">
+	<link rel="icon" href="public/img/logo.png" type="image/png">
 	<title>Enterprise Project</title>
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="edusmart/css/bootstrap.css">
@@ -36,13 +36,14 @@ if(!isset($_SESSION))
 	<!-- main css -->
 
 	<link rel="stylesheet" href="edusmart/css/style.css">
-	<link rel="stylesheet" href="public/css/style.css">
+	<!-- <link rel="stylesheet" href="public/css/style.css"> -->
+	 
 </head>
 
 <body>
 
 	<!--================ Start Header Menu Area =================-->
-	<header class="header_area">
+	<header class="header_area" id="top">
 		<div class="header-top">
 			<div class="container">
 				<div class="row align-items-center">
@@ -97,15 +98,15 @@ if(!isset($_SESSION))
 								 aria-expanded="false">Classroom</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Course Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Elements</a></li>
+									<!-- <li class="nav-item"><a class="nav-link" href="#">Course Details</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Elements</a></li> -->
 								</ul>
 							</li>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Personal</a>
 								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+									<li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
 									<li class="nav-item"><a class="nav-link" href="conversation.php">Messages</a></li>
 								</ul>
 							</li>
@@ -114,7 +115,7 @@ if(!isset($_SESSION))
 				              if($_SESSION['role'] == 0)
 				                {
 				               ?>
-							<li class="nav-item"><a class="nav-link" href="">Admin Function</a></li>
+							<li class="nav-item"><a class="nav-link" href="">Staff Function</a></li>
 							<?php
 				              }?><li class="nav-item">
 								<!-- <a href="#" class="nav-link search" id="search">
@@ -145,43 +146,46 @@ if(!isset($_SESSION))
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h4>Top Products</h4>
+					<h4>Top Tutor</h4>
 					<ul>
-						<li><a href="#">Managed Website</a></li>
-						<li><a href="#">Manage Reputation</a></li>
-						<li><a href="#">Power Tools</a></li>
-						<li><a href="#">Marketing Service</a></li>
+						<li><a href="#top">Managed Website</a></li>
+						<li><a href="#top">Manage Reputation</a></li>
+						<li><a href="#top">Power Tools</a></li>
+						
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h4>Quick Links</h4>
+					<h4>Top Tutor</h4>
 					<ul>
-						<li><a href="#">Jobs</a></li>
-						<li><a href="#">Brand Assets</a></li>
-						<li><a href="#">Investor Relations</a></li>
-						<li><a href="#">Terms of Service</a></li>
+						<li><a href="#top">Managed Website</a></li>
+						<li><a href="#top">Manage Reputation</a></li>
+						<li><a href="#top">Power Tools</a></li>
+						
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h4>Features</h4>
+					<h4>Top Tutor</h4>
 					<ul>
-						<li><a href="#">Jobs</a></li>
-						<li><a href="#">Brand Assets</a></li>
-						<li><a href="#">Investor Relations</a></li>
-						<li><a href="#">Terms of Service</a></li>
+						<li><a href="#top">Managed Website</a></li>
+						<li><a href="#top">Manage Reputation</a></li>
+						<li><a href="#top">Power Tools</a></li>
+						
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h4>Resources</h4>
+					<h4>Top Tutor</h4>
 					<ul>
-						<li><a href="#">Guides</a></li>
-						<li><a href="#">Research</a></li>
-						<li><a href="#">Experts</a></li>
-						<li><a href="#">Agencies</a></li>
+						<li><a href="#top">Managed Website</a></li>
+						<li><a href="#top">Manage Reputation</a></li>
+						<li><a href="#top">Power Tools</a></li>
+						
 					</ul>
 				</div>
-				<div class="col-lg-4 col-md-6 single-footer-widget">
-					<h4>Newsletter</h4>
+				<div class="col-lg-4 col-md-6 single-footer-widget float-right justify-right align-right">
+					<a href="#top" title="Back to Top"><h2 class="text-white text-center"><i class="lnr lnr-chevron-up"></i></h2>
+					<h4 class="text-white text-center">Back to Top</h4></a>
+
+					<!-- <h4>Newsletter</h4>
 					<p>You can trust us. we only send promo offers,</p>
 					<div class="form-wrap" id="mc_embed_signup">
 						<form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01"
@@ -197,7 +201,7 @@ if(!isset($_SESSION))
 
 							<div class="info"></div>
 						</form>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="row footer-bottom d-flex justify-content-between">

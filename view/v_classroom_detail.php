@@ -1,12 +1,13 @@
 <?php
 require_once("controller/c_meeting.php");
+
 require_once("controller/c_post.php");
 require_once("controller/c_document.php");
-
+require_once("controller/c_comment.php");
 $cuser = new c_User();
 $data = $cuser->getTutorList();
 $userlist = $data['UserList'];
-
+$ccom = new c_Comment();
 
 $cpost = new c_Post();
 $data = $cpost->getList();
@@ -34,7 +35,17 @@ if(isset($_GET['id'])
 	$data = $cmeet->getAllClassMeeting($id);
 	$meetinglist = $data['MeetingList'];
 
-}
+	$data = $cpost->getAllClassPost($id);
+	$postlist = $data['PostList'];
+
+	
+	$data = $cdoc->getAllClassDocument($id);
+	$documentlist = $data['DocumentList'];
+
+} else {
+        //id not exist
+        echo '<script> location.replace("classroom.php"); </script>';
+    }
 //print_r($meetinglist);
 
 
@@ -68,7 +79,7 @@ if(isset($_GET['id'])
 
 <div class="container">
 	<div class="row p-3">
-		<div class="col-md-3 col-sm-12">
+		<div class="col-md-4 col-sm-12">
 			<div class="card p-3">
 				 <div class="container">
 				 	<div class="contact_info" id="contact_info">
@@ -78,6 +89,12 @@ if(isset($_GET['id'])
 		                            <h6><?=$classroom->name?></h6>
 		                            <p>Class ID : <?=$classroom->classroom_id?></p>
 		                        </div>
+		                        
+		                        <div class="info_item">
+		                            
+		                            <h6>Note</h6>
+		                            <p><?=$classroom->note?></p>
+		                        </div>
 		                        <div class="info_item">
 		                            
 		                            <h6>Tutor</h6>
@@ -85,6 +102,13 @@ if(isset($_GET['id'])
 										if($user->user_id == $classroom->tutor_id){
 											?>
 											<p><?=$user->first_name?> <?=$user->last_name?></p>
+											<?php if (isset($_SESSION['user_id'])) {
+		                           		if($_SESSION['user_id'] != $user->user_id){
+		                           			echo '<a href="#" class="btn btn-primary">Send Message</a>'
+		                           		
+		                            ;
+		                           } }
+		                            ?>
 											<?php 
 										}
 									}
@@ -92,11 +116,17 @@ if(isset($_GET['id'])
 									 ?>
 		                            
 		                        </div>
-		                        <div class="info_item">
-		                            
-		                            <h6>Note</h6>
-		                            <p><?=$classroom->note?></p>
-		                        </div>
+		                        
+		                    </div>
+				 </div>
+			 </div>
+			 <div class="card p-3">
+				 <div class="container">
+				 	<div class="contact_info" id="contact_info">
+		                        <h6> Sections </h6>
+		                        <a href="#meeting"><p>Class's Meeting</p></a>
+		                        <a href="#post"><p>Class's Post</p></a>
+		                        <a href="#document"><p>Class's Uploaded Document</p></a>
 		                        
 		                    </div>
 				 </div>
@@ -104,7 +134,7 @@ if(isset($_GET['id'])
 		</div>
 		<div class="col-md-8 col-sm-12">
 			
-			<div name="meeting" class="col-12">
+			<div name="meeting" id="meeting" class="col-12 pb-5">
 				<div class="row"> 
 					<h3> Meeting </h3>
 					<?php echo '<a href="meeting_add.php?id='.$id.'" class="btn">Add new Meeting</a>'; ?>
@@ -138,11 +168,12 @@ if(isset($_GET['id'])
 				
 				<?php echo '<a href="meeting.php?id='.$id.'" class="btn">All Meeting</a>'; ?>
 			</div>
-			<div name="post" class="col-12">
+			<div name="post" id="post" class="col-12 pb-5">
 				<div class="row"> 
-					<h3> Post </h3><a href="#" class="btn">Add new Post</a>
+					<h3> Post </h3>
+					<?php echo '<a href="post.php?id='.$id.'" class="btn">Add new Post</a>'; ?>
 				</div>
-				<div class="card col-md-8 col-sm-12 mt-3">
+				<!-- <div class="card col-md-8 col-sm-12 mt-3">
 				  <div class="card-body">
 				    <h5 class="card-title pb-0 mb-0">User Name</h5>
 				    <p class="card-text text-muted"><small>Posted on 2020-01-22</small></p>
@@ -150,13 +181,46 @@ if(isset($_GET['id'])
 				    
 				    <a href="#" class="btn btn-primary">Go to Post</a>
 				  </div>
-				</div>
-			</div>
-			<div name="document" class="col-12">
-				<div class="row"> 
-					<h3> Document </h3><a href="#" class="btn">Add new Document</a>
-				</div>
+				</div> -->
+				<?php foreach($postlist as $post){ ?>
 				<div class="card col-md-8 col-sm-12 mt-3">
+				  <div class="card-body">
+				  	<?php foreach ($userlist as $user) {
+				  		if ($user->user_id == $post->user_id) {
+				  			if($post->in_class == 0){
+				  			echo '<h5 class="card-title pb-0 mb-0">'.$user->first_name.' '.$user->last_name.'</h5>';
+					  		} else{
+					  		echo '<h5 class="card-title pb-0 mb-0">'.$user->first_name.' '.$user->last_name.' > '.$classroom->name.'</h5>';
+					  		}
+				  		}
+				  	}
+
+
+				  	?>
+				    
+				    <p class="card-text text-muted"><small><?=$post->created_at?></small></p>
+				    <p class="card-text"><?=$post->content?></p>
+				    <div class="row px-4 py-1">
+				     <h5><i class="lnr lnr-bubble pr-2"></i></h5>
+				    <?php echo '<h6 class="card-title pb-0 mb-0">'.$ccom->getCommentCount($post->post_id).'</h6>';
+				    ?>
+				    </div>
+				    
+				     <?php echo '<a href="post_detail.php?id='.$post->post_id.'" class="btn btn-primary">Go to Post</a>';
+				    ?>
+				  </div>
+				</div>
+	
+				<?php	}?>
+				<?php echo '<a href="post.php?id='.$id.'" class="btn">All Post</a>'; ?>
+			</div>
+			<div name="document" id="document" class="col-12 pb-5 ">
+				<div class="row"> 
+					<h3> Document </h3>
+					<?php echo '<a href="document_add.php?id='.$id.'" class="btn">Add Document</a>'; ?>
+				</div>
+				<div>
+				<!-- <div class="card col-md-8 col-sm-12 mt-3">
 				  <div class="card-body">
 				    <h5 class="card-title pb-0 mb-0">Document Name</h5>
 				    <p class="card-text text-muted"><small>Posted By Name Name</small></p>
@@ -164,8 +228,54 @@ if(isset($_GET['id'])
 				    
 				    <a href="#" class="btn btn-primary">Action with Document</a>
 				  </div>
+				</div> -->
+				<?php foreach($documentlist as $document){ ?>
+                <div class="card col-md-8 col-sm-12 mt-3">
+                  <div class="card-body">
+                    <h5 class="card-title pb-0 mb-0"><?=$document->name?></h5>
+                    <?php foreach ($userlist as $user) {
+                        if ($user->user_id == $document->user_id) {
+                            
+                     ?>
+                    <p class="card-text text-muted"><small>Posted By <?=$user->first_name?> <?=$user->last_name?></small></p>
+                    <?php } } ?>
+                    <p class="card-text"><?=$document->description?></p>
+                    <div class="blog_right_sidebar col-md-8 col-sm-8 p-3 m-5" >
+                                        <aside class="single_sidebar_widget popular_post_widget">
+                                    <div class="media post_item">
+                                        <h3><i class="lnr lnr-file-empty"></i></h3>
+                                        <div class="media-body">
+                                           <?php echo ' <a href="documents/'.$document->file.'" download id="download"><h3>'.$document->file.'</h3>
+                                            </a>';?>
+                                            <!-- <a href="documents/6693-concepts_ruiner.png" download id="download">
+                                                <h3><?=$document->file?></h3>
+                                            </a> -->
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                        </aside>
+                    </div>
+                    <?php foreach ($userlist as $user) {
+                        if ($user->user_id == $document->user_id) {
+                            //echo '<a href="document_edit.php?id=" class="btn btn-primary px-3 py-1">Edit</a>';
+                            echo '<a href="document_delete.php?id='.$document->id.'&id2='.$document->classroom_id.'" class="btn btn-danger px-3 py-1">Delete</a>';
+                     ?>
+                    
+                    <?php } } ?>
+                  </div>
+                </div>
+
+
+
+              <?php  }?>
+
+
+
 				</div>
+				<?php echo '<a href="document.php?id='.$id.'" class="btn">All Documents</a>'; ?>
 			</div>
+
 		</div>
 
 

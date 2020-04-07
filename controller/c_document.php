@@ -17,6 +17,25 @@ class c_Document extends c_Router{
 		$data = array('DocumentList'=>$documentlist);
 		return $data;
 	}
+	public function getAllClassDocument($id)
+	{
+		$model =new m_Document();
+		$documentlist = $model->getAllClassDocument($id);
+		$data = array('DocumentList'=>$documentlist);
+		return $data;
+	}
+	public function getAllUserDocument($id)
+	{
+		$model =new m_Document();
+		$documentlist = $model->getAllUserDocument($id);
+		$data = array('DocumentList'=>$documentlist);
+		return $data;
+	}
+	public function getAdd()
+	{
+		
+		$this->loadView('v_documentadd');
+	}
 	public function AddDocument($classroom_id,$user_id,$file,$name,$description)
 	{
 
@@ -30,14 +49,14 @@ class c_Document extends c_Router{
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("document.php?id='.$classroom_id.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("document.php?id='.$classroom_id.'"); </script>';
 
 		}
 	}
@@ -54,7 +73,7 @@ class c_Document extends c_Router{
 			$_SESSION['success'] ='Edit succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("document.php?id='.$classroom_id.'"); </script>';
 			
 		}
 		else
@@ -62,7 +81,7 @@ class c_Document extends c_Router{
 			print_r("fail c");
 			//fail
 			$_SESSION['error']='Edit fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("document.php?id='.$classroom_id.'"); </script>';
 
 		}
 	}
@@ -92,7 +111,7 @@ class c_Document extends c_Router{
 			$_SESSION['success'] ='Delete succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 			
 		}
 		else
@@ -100,7 +119,7 @@ class c_Document extends c_Router{
 			
 			//fail
 			$_SESSION['error']='Delete fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 
 		}
 	}

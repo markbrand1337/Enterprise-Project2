@@ -15,12 +15,16 @@ if(isset($_GET['id'])
 	$cclass = new c_Classroom();
 	$data = $cclass->getOneClassroom($id);
 	$classroom = $data['OneClassroom'];	
+
 	
-	$name =
+	// $name =
 	$data = $cmeet->getAllClassMeeting($id);
 	$meetinglist = $data['MeetingList'];
 
-}
+} else {
+        //id not exist
+        echo '<script> location.replace("classroom.php"); </script>';
+    }
   ?>
 
 

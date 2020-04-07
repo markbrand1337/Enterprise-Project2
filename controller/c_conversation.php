@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_conversation.php");
+include_once("model/m_userlog.php");
 class c_Conversation extends c_Router{
 	public function getConversation()
 	{
@@ -26,12 +27,20 @@ class c_Conversation extends c_Router{
 	}
 
 	
+	public function getUserRecentConversation($id)
+	{
+		$model =new m_Conversation();
+		$conversationlist = $model->getUserRecentConversation($id);
+		$data = array('ConversationList'=>$conversationlist);
+		return $data;
+	}
 	public function AddConversation($user_one,$user_two)
 	{
 
 		$model = new m_Conversation();
 		$id = $model->AddConversation($user_one,$user_two);
-		
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($user_one);
 		if($id>0)
 		{
 
@@ -39,14 +48,14 @@ class c_Conversation extends c_Router{
 			$_SESSION['success'] ='add succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			echo '<script> location.replace("conversation.php?conv_id='.$id.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			
 
 		}
 	}
@@ -84,6 +93,14 @@ class c_Conversation extends c_Router{
 		
 		$result = array( 'OneConversation' => $oneconversation);
 		return $result;
+	}
+	public function getOneConversation2($id,$id2)
+	{
+		$model = new m_Conversation();
+		$oneconversation = $model->getOneConversation2($id,$id2);
+		
+		//$result = array( 'OneConversation' => $oneconversation);
+		return $oneconversation;
 	}
 	
 	

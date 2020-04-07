@@ -1,10 +1,30 @@
 <?php
 include_once("controller/c_conversation.php");
 include_once("controller/c_message.php");
+include_once("controller/c_userlog.php");
+
+$cuserlog = new c_UserLog();
+
+function updateactivity(){
+	if(isset($_SESSION['user_id'])){
+		$user_id= $_SESSION['user_id'];
+		$cuserlog = new c_UserLog();
+		$res = $cuserlog->getOneUserLog($user_id);
+			if($res == null){
+				$cuserlog->AddUserLog($user_id);
+				
+			} else{
+				$cuserlog->EditUserLog($user_id);
+				
+			}
+	}
+	
+}
+//updateactivity();
+
 $ccon = new c_Conversation();
 $cmess = new c_Message();
 $cuser = new c_User();
-
 if(isset($_SESSION['user_id'])){
 	$user_id= $_SESSION['user_id'];
 	$id =1;
@@ -52,6 +72,12 @@ if(isset($_POST['message']))
 		$send_at = date("Y-m-d H:i:s");
 
 		$cmess->AddMessage($conversation_id,$content,$from_id,$to_id,$send_at);
+		$res = $cuserlog->getOneUserLog($user_id);
+		if($res == null){
+			$cuserlog->AddUserLog($user_id);
+		} else{
+			$cuserlog->EditUserLog($user_id);
+		}
 	}
 }
 
@@ -170,7 +196,7 @@ if(isset($_POST['message']))
 
 		<div class="h-20 pt-3">
 			<form action="#" method="post" class="">
-				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="message" required="required"></textarea>
+				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" pattern="^.{1,200}$" name="message" required="required"></textarea>
 				<input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12  col-md-12 float-right" value="Send" name="send">
 			</form>
 		</div>

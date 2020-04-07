@@ -17,7 +17,15 @@ class c_Classroom extends c_Router{
 		return $data;
 		
 	}
-
+	
+	public function getAllStudentClassroom($id)
+	{
+		$model= new m_Classroom();
+		$classroomlist = $model->getAllStudentClassroom($id);
+		$data = array('ClassroomList'=>$classroomlist);
+		return $data;
+		
+	}
 	public function getClassroomDetail($id)
 	{
 		$model =new m_Classroom();

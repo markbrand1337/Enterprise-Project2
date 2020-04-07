@@ -1,5 +1,28 @@
 <?php
+// include_once("controller/c_classroomstudent.php");
+$cclass = new c_Classroom();
 
+$data = $cclass->getList();
+$classroomlist = $data['ClassroomList'];
+// $cclasssroomtudent = new c_ClassroomStudent();
+// $data = $cclasssroomtudent->getList();
+// $classroomStudentlist = $data['ClassroomStudentList'];
+if(isset($_SESSION['user_id']))
+{
+    if(isset($_SESSION['role']))
+    {
+    $role = $_SESSION['role'];
+     }
+    $user_id= $_SESSION['user_id'];
+    if($role == 0 || $role == 2){
+      //staff 
+      $data = $cclass->getList();
+      $classroomlist = $data['ClassroomList'];
+    } elseif ($role == 1) {
+      $data = $cclass->getAllStudentClassroom($user_id);
+      $classroomlist = $data['ClassroomList'];
+    }
+}
   ?>
 
 
@@ -29,9 +52,13 @@
 	<h2 class="pt-4 mb-5  text-center">Classroom List</h2>
 
 <div class="row py-3">
+  <?php if($role ==0){ ?>
   <a href="classroom_add.php" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12 float-right"><h4 class="text-white">Add New Class</h4></a>
-</div>
 
+
+<?php  }?>
+  
+</div>
 <div class="row">
               <table id="" class="table table-bordered table-hover">
                 <thead>
@@ -46,7 +73,7 @@
                 </thead>
                 <tbody>
                <?php
-               $classroomlist = $data['ClassroomList'];
+               // $classroomlist = $data['ClassroomList'];
                foreach($classroomlist as $class)
                {
                ?>
@@ -68,7 +95,7 @@
                   
                   <?php } elseif ($_SESSION['role'] == 1) {
                    ?>
-                    <a href="classroom_join.php?id=<?=$class->classroom_id?>"><i class="fa fa-fw fa-sign-in" style="color:green; font-size:20px;" title="Join this class."></i></a>
+                    <!-- <a href="classroom_join.php?id=<?=$class->classroom_id?>"><i class="fa fa-fw fa-sign-in" style="color:green; font-size:20px;" title="Join this class."></i></a> -->
                                        
                     <a href="classroom_detail.php?id=<?=$class->classroom_id?>"><i class="fa fa-fw fa-info" style="color:blue; font-size:20px;" title="View Class page."></i></a>
                   <?php } elseif ($_SESSION['role'] == 2) {

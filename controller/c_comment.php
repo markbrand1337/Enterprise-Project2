@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_comment.php");
+include_once("model/m_userlog.php");
 class c_Comment extends c_Router{
 	public function getComment()
 	{
@@ -17,12 +18,37 @@ class c_Comment extends c_Router{
 		$data = array('CommentList'=>$commentlist);
 		return $data;
 	}
-	public function AddComment($post_id,$content,$user_id,$created_at)
-	{
 
+	
+	public function getAllPostComment($id)
+	{
+		$model =new m_Comment();
+		$commentlist = $model->getAllPostComment($id);
+		$data = array('CommentList'=>$commentlist);
+		return $data;
+	}
+	
+	public function getUserRecentComment($id)
+	{
+		$model =new m_Comment();
+		$commentlist = $model->getUserRecentComment($id);
+		$data = array('CommentList'=>$commentlist);
+		return $data;
+	}
+	public function getCommentCount($id)
+	{
+		$model =new m_Comment();
+		$data = $model->getCommentCount($id);
+		// $data = array('CommentList'=>$commentlist);
+		return $data;
+	}
+	public function AddComment($post_id,$content,$user_id)
+	{
+		$date = date("Y-m-d H:i:s");
 		$model = new m_Comment();
-		$id = $model->AddComment($post_id,$content,$user_id,$created_at);
-		
+		$id = $model->AddComment($post_id,$content,$user_id,$date);
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($user_id);
 		if($id>0)
 		{
 
@@ -41,12 +67,13 @@ class c_Comment extends c_Router{
 
 		}
 	}
-	public function EditComment($comment_id,$post_id,$content,$user_id,$created_at)
+	public function EditComment($comment_id,$post_id,$content,$user_id)
 	{
 
 		$model = new m_Comment();
-		$idd = $model->EditComment($comment_id,$post_id,$content,$user_id,$created_at);
-		
+		$idd = $model->EditComment($comment_id,$post_id,$content,$user_id);
+		$muserlog=new m_UserLog();
+		$log =$muserlog->EditUserLog($user_id);
 		if($idd>0)
 		{
 			 print_r("succ c");
