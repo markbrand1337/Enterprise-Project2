@@ -21,7 +21,14 @@ class c_User extends c_Router{
 		return $data;
 	}
 	
-
+	public function searchAvailableStudent($name)
+	{	
+		
+		$muser= new m_User();
+		$userlist = $muser->searchAvailableStudent($name);
+		$data = array('UserList'=>$userlist);
+		return $data;
+	}
 	public function getAllStudentNotFromClass($class)
 	{	
 		
@@ -96,6 +103,12 @@ class c_User extends c_Router{
 	{
 		
 		$this->loadView('v_useredit');
+	}
+	
+	public function getReport()
+	{
+		
+		$this->loadView('v_report');
 	}
 	public function getSignUp()
 	{

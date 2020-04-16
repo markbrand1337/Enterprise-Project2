@@ -19,14 +19,14 @@ class c_ClassroomStudent extends c_Router{
 	public function getStudentList($classroom_id)
 	{
 		$model =new m_ClassroomStudent();
-		$cstudentlist = $model->getAllClassroomStudent($classroom_id);
+		$cstudentlist = $model->getStudentList($classroom_id);
 		$data = array('CStudentList'=>$cstudentlist);
 		return $data;
 	}
 	public function getClassroomList($user_id)
 	{
 		$model =new m_ClassroomStudent();
-		$sclassroomlist = $model->getAllClassroomStudent($user_id);
+		$sclassroomlist = $model->getClassroomList($user_id);
 		$data = array('SClassroomList'=>$sclassroomlist);
 		return $data;
 	}
@@ -150,7 +150,7 @@ class c_ClassroomStudent extends c_Router{
 			$_SESSION['success'] ='Delete succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroomstudent.php?id='.$id2.'"); </script>';
 			
 		}
 		else
@@ -158,7 +158,7 @@ class c_ClassroomStudent extends c_Router{
 			
 			//fail
 			$_SESSION['error']='Delete fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 echo '<script> location.replace("classroomstudent.php?id='.$id2.'"); </script>';
 
 		}
 	}

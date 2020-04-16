@@ -25,10 +25,32 @@ class c_Post extends c_Router{
 		$data = array('PostList'=>$postlist);
 		return $data;
 	}
+	
+	public function getAllClassPostFromTutor($id)
+	{
+		$model =new m_Post();
+		$postlist = $model->getAllClassPostFromTutor($id);
+		$data = array('PostList'=>$postlist);
+		return $data;
+	}
+	public function getAllClassPostFromStudent($id)
+	{
+		$model =new m_Post();
+		$postlist = $model->getAllClassPostFromStudent($id);
+		$data = array('PostList'=>$postlist);
+		return $data;
+	}
 	public function getAllUserPost($id)
 	{
 		$model =new m_Post();
 		$postlist = $model->getAllUserPost($id);
+		$data = array('PostList'=>$postlist);
+		return $data;
+	}
+	public function getAllUserPostFromClass($id,$cid)
+	{
+		$model =new m_Post();
+		$postlist = $model->getAllUserPostFromClass($id,$cid);
 		$data = array('PostList'=>$postlist);
 		return $data;
 	}

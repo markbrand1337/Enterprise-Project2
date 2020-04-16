@@ -34,8 +34,13 @@ if(isset($_SESSION['user_id'])){
 	$data = $ccon->getConversationList($user_id);
 	$conversationlist = $data['ConversationList'];
 
-	// $cuser->emailNotification($id,$user_id);
-	$conversation_id= $conversationlist{0}->conversation_id;
+	// $cuser->emailNotification($id,$user_id);if(!empty($conversationlist){
+	if(!empty($conversationlist))
+	{	$conversation_id = $conversationlist{0}->conversation_id;
+	} else{
+		$conversation_id = 0;
+	}
+	// $conversation_id= $conversationlist{0}->conversation_id;
 	
 	
 	$data = $cmess->getMessageList($conversation_id);
@@ -92,7 +97,11 @@ if(isset($_POST['message']))
 
 	<div class="col-3 ">
 		<div style="overflow-y: scroll;">
-		<?php foreach($conversationlist as $conversation){?>
+		<?php 
+		if(!empty($conversationlist)){
+
+
+		foreach($conversationlist as $conversation){?>
 		<div class="card" style="width: 100%;">
 		  <div class="card-body">
 		  	<?php foreach($userlist as $user){
@@ -109,7 +118,17 @@ if(isset($_POST['message']))
 		  </div>
 		</div>
 
-		<?php }?>
+		<?php } } else {?>
+			<div class="card" style="width: 100%;">
+		  <div class="card-body">
+		   
+		    <h5 class="card-title">No Messages</h5>
+		    
+
+		  </div>
+		</div>
+
+			<?php }?>
 
 		<!-- <div class="card" style="width: 100%;">
 		  <div class="card-body">
@@ -129,6 +148,8 @@ if(isset($_POST['message']))
 		</div>
 	</div>
 	<div class="col-8 card pb-3 pt-3" style="max-height: 700px;">
+	<?php 
+		if(!empty($conversationlist)){ ?>
 
 		<div class="h-75 bg-secondary" style="overflow-y: scroll; " id="message">
 			<?php foreach($messagelist as $message){
@@ -193,13 +214,22 @@ if(isset($_POST['message']))
 
 		</div>	
 	
-
+		
 		<div class="h-20 pt-3">
 			<form action="#" method="post" class="">
 				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" pattern="^.{1,200}$" name="message" required="required"></textarea>
 				<input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12  col-md-12 float-right" value="Send" name="send">
 			</form>
 		</div>
+		<?php } else { ?>
+				<div class="h-20 pt-3">
+			<!-- <form action="#" method="post" class="">
+				<textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" pattern="^.{1,200}$" name="message" required="required" disabled> This feature is currently unavailable.</textarea>
+				<input   class="genric-btn success circle px-5 py-1 col-sm-12  col-md-12 float-right" value="Not Available" disabled>
+			</form> -->
+			<h5 class="card-title">Currently unable to send or read messages due to lack of conversation partner.</h5>
+		</div>
+		<?php } ?>
 	</div>
 	</div>
 

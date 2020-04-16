@@ -24,10 +24,32 @@ class c_Document extends c_Router{
 		$data = array('DocumentList'=>$documentlist);
 		return $data;
 	}
+	public function getAllClassDocumentFromTutor($id)
+	{
+		$model =new m_Document();
+		$documentlist = $model->getAllClassDocumentFromTutor($id);
+		$data = array('DocumentList'=>$documentlist);
+		return $data;
+	}
+	public function getAllClassDocumentFromStudent($id)
+	{
+		$model =new m_Document();
+		$documentlist = $model->getAllClassDocumentFromStudent($id);
+		$data = array('DocumentList'=>$documentlist);
+		return $data;
+	}
 	public function getAllUserDocument($id)
 	{
 		$model =new m_Document();
 		$documentlist = $model->getAllUserDocument($id);
+		$data = array('DocumentList'=>$documentlist);
+		return $data;
+	}
+	
+	public function getAllUserDocumentFromClass($id,$cid)
+	{
+		$model =new m_Document();
+		$documentlist = $model->getAllUserDocumentFromClass($id,$cid);
 		$data = array('DocumentList'=>$documentlist);
 		return $data;
 	}

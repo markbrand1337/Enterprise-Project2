@@ -52,6 +52,11 @@ class c_Message extends c_Router{
 			echo '<script> location.replace("conversation.php?conv_id='.$conversation_id.'"); </script>';
 		}
 	}
+
+
+	//report
+	
+	
 	// public function EditMessage($message_id,$conversation_id,$content,$from_id,$to_id,$send_at)
 	// {
 

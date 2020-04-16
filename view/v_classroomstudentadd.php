@@ -1,5 +1,6 @@
 <?php
 include_once("controller/c_classroom.php");
+$cclass = new c_Classroom();
 $cuser = new c_User();
 $data = $cuser->getStudentList();
 $userlist = $data['UserList'];
@@ -8,8 +9,10 @@ if(isset($_GET['id'])
 	){
 				//class id
 				$id=$_GET['id'];
-			$data = $cuser->getAllStudentNotFromClass($id);
+			$data = $cuser->getAvailableStudent();
+
 		$userlist = $data['UserList'];
+
 			
 }
 
@@ -17,7 +20,7 @@ if(isset($_GET['id'])
 
 
 
-$cclass = new c_Classroom();
+
 $data1 = $cclass->getList();
 $classroomlist = $data1['ClassroomList'];
 
@@ -34,7 +37,8 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
 ){
 		$controller = new c_ClassroomStudent();
 		$controller->AddClassroomStudent($user_id,$classroom_id);
-}
+		$cuser->emailNotification($user_id,$classroom_id);
+}		
 
 
 }
@@ -49,7 +53,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
 <div class="card col-sm-12 col-md-6 mb-5 mx-auto text-white bg-white">
 		 <h2 class="pt-4 text-dark card-title text-center">Add Student to Class</h2>
 				<form action="#" method="post" class="center p-3 pb-4">
-				  <h3 class="pt-4 text-dark  card-title">Class</h3>
+				 <!--  <h3 class="pt-4 text-dark  card-title">Class</h3>
 				
 				  <div class="form-select">
 				  	<h4>
@@ -64,8 +68,8 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
                      ?> 						
 					</select>
 				</h4>
-								</div>
-				  
+								</div> -->
+				  <?php echo '<input type="hidden" id="custId" name="classroom_id" value="'.$id.'">' ?>
 				  
 				<h3 class="pt-4 text-dark  card-title">Student</h3>
 				
@@ -82,7 +86,7 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id'])
                      ?> 					
 					</select>
 				</h4>
-								</div>
+				</div>
 				
 				  <div class="pt-3">
 						<h4><input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12 mb-sm-3 col-md-4 float-right" value="Submit" name="submit"></h4>

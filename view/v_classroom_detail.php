@@ -30,17 +30,55 @@ if(isset($_GET['id'])
 	$cclass = new c_Classroom();
 	$data = $cclass->getOneClassroom($id);
 	$classroom = $data['OneClassroom'];
-		
-	
+
 	$data = $cmeet->getAllClassMeeting($id);
-	$meetinglist = $data['MeetingList'];
-
-	$data = $cpost->getAllClassPost($id);
-	$postlist = $data['PostList'];
+	$meetinglist = $data['MeetingList'];	
+	if(isset($_GET['filter']) 
+	&&filter_var($_GET['filter'],FILTER_VALIDATE_INT,array('min_range'=>0) ) 
+	){
+		$filter = $_GET['filter'];
+		if ($filter == 1) {
+				$data = $cpost->getAllClassPostFromStudent($id);
+				$postlist = $data['PostList'];
 
 	
-	$data = $cdoc->getAllClassDocument($id);
-	$documentlist = $data['DocumentList'];
+				$data = $cdoc->getAllClassDocumentFromStudent($id);
+				$documentlist = $data['DocumentList'];
+		} else {
+				$data = $cpost->getAllClassPostFromTutor($id);
+				$postlist = $data['PostList'];
+
+				
+				$data = $cdoc->getAllClassDocumentFromTutor($id);
+				$documentlist = $data['DocumentList'];
+		}
+	}
+	else {
+		$data = $cpost->getAllClassPost($id);
+		$postlist = $data['PostList'];
+
+		
+		$data = $cdoc->getAllClassDocument($id);
+		$documentlist = $data['DocumentList'];
+	}
+	
+
+	
+
+
+	if(isset($_POST['filter'])){
+    	if(isset($_POST['filter_value'])){
+    		$filter_value = $_POST['filter_value'];
+    		//print_r($cid);
+    		if($filter_value == 0){
+    			echo '<script> location.replace("classroom_detail.php?id='.$id.'"); </script>';
+    		} else {
+    			echo '<script> location.replace("classroom_detail.php?id='.$id.'&filter='.$filter_value.'"); </script>';
+    		}
+    		
+    	}
+
+    }
 
 } else {
         //id not exist
@@ -101,7 +139,7 @@ if(isset($_GET['id'])
 		                            <?php foreach($userlist as $user){
 										if($user->user_id == $classroom->tutor_id){
 											?>
-											<p><?=$user->first_name?> <?=$user->last_name?></p>
+											<p><a class="text-dark mb-3" href="dashboard.php?id=<?=$user->user_id?>"><?=$user->first_name?> <?=$user->last_name?></a></p>
 											<?php if (isset($_SESSION['user_id'])) {
 		                           		if($_SESSION['user_id'] != $user->user_id){
 		                           			echo '<a href="#" class="btn btn-primary">Send Message</a>'
@@ -117,6 +155,11 @@ if(isset($_GET['id'])
 		                            
 		                        </div>
 		                        
+		                        <div class="info_item">
+		                            
+		                            <h6>Student List</h6>
+		                            <p><a href="classroomstudent.php?id=<?=$classroom->classroom_id?>">Go to List.</a></p>
+		                        </div>
 		                    </div>
 				 </div>
 			 </div>
@@ -133,7 +176,27 @@ if(isset($_GET['id'])
 			 </div>
 		</div>
 		<div class="col-md-8 col-sm-12">
-			
+			<div class="col-12 pb-5">
+				<h5> Filter for Interaction in Class : </h5>
+		<form action="" method="post">
+							<div class=""> 
+								<div class="form-select col-sm-12 col-md-6 col-lg-6">
+				  	<h6>
+					<select class="form-control form-control-lg border border-info" name="filter_value" id="filter_value">
+					<option value="0"> All Users' Interaction </option>
+					<option value="1"> Only Students' Interaction </option>
+					<option value="2"> Only Tutors' Interaction </option>
+					</select>
+				</h6>
+				</div>
+				<div class="pt-3">
+						<h4><input  type="submit" class="genric-btn success circle px-5 py-1 ccol-sm-12 col-md-6 col-lg-6" value="filter" name="filter"></h4>
+						
+					</div> 
+							</div>
+							
+						</form>
+			</div>
 			<div name="meeting" id="meeting" class="col-12 pb-5">
 				<div class="row"> 
 					<h3> Meeting </h3>
@@ -188,9 +251,11 @@ if(isset($_GET['id'])
 				  	<?php foreach ($userlist as $user) {
 				  		if ($user->user_id == $post->user_id) {
 				  			if($post->in_class == 0){
-				  			echo '<h5 class="card-title pb-0 mb-0">'.$user->first_name.' '.$user->last_name.'</h5>';
+				  			echo '
+				  			<a href="dashboard.php?id='.$user->user_id.'"><h5 class="card-title pb-0 mb-0">'.$user->first_name.' '.$user->last_name.'</h5></a>
+				  			';
 					  		} else{
-					  		echo '<h5 class="card-title pb-0 mb-0">'.$user->first_name.' '.$user->last_name.' > '.$classroom->name.'</h5>';
+					  		echo '<h5 class="card-title pb-0 mb-0"><a class="text-dark" href="dashboard.php?id='.$user->user_id.'">'.$user->first_name.' '.$user->last_name.'</a> > <a class="text-dark" href="classroom_detail.php?id='.$classroom->classroom_id.'">'.$classroom->name.'</a></h5>';
 					  		}
 				  		}
 				  	}
@@ -237,7 +302,7 @@ if(isset($_GET['id'])
                         if ($user->user_id == $document->user_id) {
                             
                      ?>
-                    <p class="card-text text-muted"><small>Posted By <?=$user->first_name?> <?=$user->last_name?></small></p>
+                   <p class="card-text text-muted"><small>Posted By <a href="dashboard.php?id=<?=$user->user_id?>"><?=$user->first_name?> <?=$user->last_name?></a> to class <a href="classroom_detail.php?id=<?=$classroom->classroom_id?>"><?=$classroom->name?></a></small></p>
                     <?php } } ?>
                     <p class="card-text"><?=$document->description?></p>
                     <div class="blog_right_sidebar col-md-8 col-sm-8 p-3 m-5" >

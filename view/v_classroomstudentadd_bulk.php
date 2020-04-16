@@ -11,12 +11,20 @@ if(isset($_GET['id'])
 	){
 				//class id
 			$id = $_GET['id'];
-			$data = $cuser->getAllStudentNotFromClass($id);
+			// $data = $cuser->getAllStudentNotFromClass($id);
+			$data = $cuser->getAvailableStudent();
 		$userlist = $data['UserList'];
 			
 }
 
+if(isset($_POST['subb']))
+{
+  $name = $_POST["search"];
+  
+    $data =$cuser->searchAvailableStudent($name);
 
+    $userlist = $data['UserList'];
+}
 $cclass = new c_Classroom();
 $data1 = $cclass->getList();
 $classroomlist = $data1['ClassroomList'];
@@ -26,20 +34,22 @@ if(isset($_POST['submit']))
 
 
 if(isset($_POST['classroom_id']))$classroom_id=$_POST['classroom_id'];
-if(isset($_POST['user_id_1']))$user_id1=$_POST['user_id_1'];
-if(isset($_POST['user_id_2']))$user_id2=$_POST['user_id_2'];
-if(isset($_POST['user_id_3']))$user_id3=$_POST['user_id_3'];
-if(isset($_POST['user_id_4']))$user_id4=$_POST['user_id_4'];
-if(isset($_POST['user_id_5']))$user_id5=$_POST['user_id_5'];
-
-if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
-	&& isset($_POST['user_id_2']) && isset($_POST['user_id_3'])
-	&& isset($_POST['user_id_4']) && isset($_POST['user_id_5'])
-	
-){
-		$controller = new c_ClassroomStudent();
-		$controller->AddClassroomStudentBulk($classroom_id,$user_id1,$user_id2,$user_id3,$user_id4,$user_id5);
+if(isset($_POST['student'])){
+	if(!empty($_POST['student'])){
+	$student =$_POST['student'];
+	}
 }
+if(!empty($_POST['student']) && isset($_POST['classroom_id'])){
+	foreach($student as $user_id){
+	// echo $user_id."</br>";
+		$controller = new c_ClassroomStudent();
+		$controller->AddClassroomStudent($user_id,$classroom_id);
+		$cuser->emailNotification($user_id,$classroom_id);
+		// echo $classroom_id;
+}
+}
+
+
 
 
 }
@@ -51,119 +61,47 @@ if( isset($_POST['classroom_id']) && isset($_POST['user_id_1'])
  <!-- Content -->
 <div class="container">
 	
-<div class="card col-sm-12 col-md-6 mb-5 mx-auto text-white bg-white">
+<div class="card col-sm-12 col-md-6 mb-5 mx-auto bg-white">
 		 <h2 class="pt-4 text-dark card-title text-center">Add Student to Class</h2>
-				<form action="#" method="post" class="center p-3 pb-4">
-				  <h3 class="pt-4 text-dark  card-title">Class</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="classroom_id" id="classroom_id" readonly>
-					<?php 
-                    foreach($classroomlist as $class)
-                   { if( $class->classroom_id == $id){
-                    ?>
-                    <option value="<?=$class->classroom_id?>" selected><?=$class->classroom_id?> - <?=$class->name?></option>
-                     <?php
-                   } }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
+		 <div class="row py-3">
+  <form action="" method="post" class="col-12">
+<input type="text" name="search" class="d-inline form-control form-control-lg col-md-8 col-sm-12 border border-info" placeholder="Search by Name">
+<input type="submit" name="subb" value="Search" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12">
+</form>
 
-				 <!--  <input type="text" class="col-12 single-input-primary form-control form-control-lg border border-info" name="classroom_id" value=""  /> -->
+</div>
+				<form action="#" method="post" class="center p-3 pb-4">
+				  <!-- <input type="hidden" id="custId" name="classroom_id" value="3487"> -->
+					<?php echo '<input type="hidden" id="custId" name="classroom_id" value="'.$id.'">' ?>
 				  
+				 <h3 class="pt-4 text-dark  card-title">Add Student</h3>
 				  
-				<h3 class="pt-4 text-dark  card-title">Student 1</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="user_id_1" id="user_id">
-					<?php 
+					
+					  
+					  <?php 
                     foreach($userlist as $student)
                    {
                     ?>
-                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="student[]" value="<?=$student->user_id?>" id="defaultCheck<?=$student->user_id?>">
+                    <label class="form-check-label" for="defaultCheck<?=$student->user_id?>">
+					    <?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?>
+					  </label>
+					  </div>
+                    
                      <?php
                    }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
-								<h3 class="pt-4 text-dark  card-title">Student 2</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="user_id_2" id="user_id">
-					<?php 
-                    foreach($userlist as $student)
-                   {
-                    ?>
-                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
-                     <?php
-                   }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
-				
-				<h3 class="pt-4 text-dark  card-title">Student 3</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="user_id_3" id="user_id">
-					<?php 
-                    foreach($userlist as $student)
-                   {
-                    ?>
-                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
-                     <?php
-                   }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
-				
-				<h3 class="pt-4 text-dark  card-title">Student 4</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="user_id_4" id="user_id">
-					<?php 
-                    foreach($userlist as $student)
-                   {
-                    ?>
-                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
-                     <?php
-                   }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
-				
-				<h3 class="pt-4 text-dark  card-title">Student 5</h3>
-				
-				  <div class="form-select">
-				  	<h4>
-					<select class="form-control form-control-lg border border-info" name="user_id_5" id="user_id">
-					<?php 
-                    foreach($userlist as $student)
-                   {
-                    ?>
-                    <option value="<?=$student->user_id?>"><?=$student->user_id?> - <?=$student->first_name?> <?=$student->last_name?></option>
-                     <?php
-                   }
-                     ?> 					
-					</select>
-				</h4>
-								</div>
-				
+                     ?> 	
+					  
+					
+			
 				
 				  <div class="pt-3">
 						<h4><input  type="submit" class="genric-btn success circle px-5 py-1 col-sm-12 mb-sm-3 col-md-4 float-right" value="Submit" name="submit"></h4>
 						<h4><a href="classroom.php" class="genric-btn  circle px-5 py-1 col-sm-12 mb-sm-3 col-md-4 float-left">Back</a></h4>
 					</div> 
 					</div> 
+					
 				</form> 
 	</div>
 

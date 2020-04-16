@@ -4,23 +4,34 @@ include_once("controller/c_classroom.php");
 // $data = $controller->getList();
 $classroomlist = $data['ClassroomStudentList'];
 $id = 0;
-
+$count = 0;
 $cuser = new c_User();
 $data = $cuser->getList();
 $userlist = $data['UserList'];
 
 
-$controller = new c_Classroom();
-$data = $controller->getList();
+$cclassroom = new c_Classroom();
+$data = $cclassroom->getList();
 $classlist = $data['ClassroomList'];
 if(isset($_GET['id']) 
 	&&filter_var($_GET['id'],FILTER_VALIDATE_INT,array('min_range'=>1) ) 
 	){
 				//class id
 				$id=$_GET['id'];
+     // print_r($id);
+      // $data = $cclassroom->getList();
+      // $classroom = $data['ClassroomList'];
+
+      $data = $cclassroom->getOneClassroom($id);
+      $classroom = $data['OneClassroom'];
+
 			$controller = new c_ClassroomStudent();
 			$data = $controller->getStudentList($id);
 			$classroomlist = $data['CStudentList'];
+      //print_r($classroomlist);
+      $ccount = $cclassroom->getStudentCount($id);
+      $count =  $ccount->student_count;
+    //print_r($ccount->student_count);
 			// print_r("getStudentList");
 			
 }
@@ -57,18 +68,45 @@ if(isset($_SESSION['user_id']))
 
 
  <!-- Content -->
+ <section class="banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-6">
+                        <div class="banner_content text-center">
+                            <h2 class="text-uppercase">Students of <?=$classroom->name?></h2>
+                            <!-- <p>Description of page</p> -->
+                            <div class="page_link">
+                                <a href="index.php">Home</a>
+                                <a href="classroom.php">Classroom List</a>
+                                
+                                <?php echo '<a href="classroomstudent.php?id='.$id.'">Students of '.$classroom->name.'</a>'; ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 <div class="container">
 	
 <h2 class="pt-4 mb-5  text-center">ClassroomStudent List</h2>
 <?php if($id !=0){?>
 <div class="row py-3">
-  <?php if($role == 0 || $role ==2){ ?>
+  <?php if($role == 0 || $role == 2){ ?>
+    <?php if($count < 10){?>
   <?php echo '<a href="classroomstudent_add.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a>';?>
+    <?php }?>
   <?php } ?>
   <?php if($role == 0){ ?>
   
   <!-- <a href="classroomstudent_add.php?id=$id" class="d-inline genric-btn success circle px-4 py-1 col-md-3 col-sm-12"><h4 class="text-white">Assign Student to Class</h4></a> -->
-  <?php echo '<a href="classroomstudent_add_bulk.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a>';?>
+  <?php if($count < 10){?>
+  <?php 
+  echo '<a href="classroomstudent_add_bulk.php?id='.$id.'" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a>';
+  ?>
+  <?php }?>
   <!-- <a href="classroomstudent_add_bulk.php" class="d-inline genric-btn success circle px-4 py-1 mx-2 col-md-3 col-sm-12"><h4 class="text-white">Bulk Assign Student to Class</h4></a> -->
 <?php } ?>
 </div>

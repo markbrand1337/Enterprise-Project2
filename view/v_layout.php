@@ -93,15 +93,19 @@ if(!isset($_SESSION))
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
 							<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-							<li class="nav-item submenu dropdown">
+							<!-- <li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Classroom</a>
 								<ul class="dropdown-menu">
 									<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
-									<!-- <li class="nav-item"><a class="nav-link" href="#">Course Details</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Elements</a></li> -->
+									
 								</ul>
-							</li>
+							</li> -->
+							<?php
+							
+				              if(isset($_SESSION['user_name']))
+				                {
+				               ?>
 							<li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Personal</a>
@@ -111,11 +115,24 @@ if(!isset($_SESSION))
 								</ul>
 							</li>
 							<?php
+				              }?>
+							<?php
 							if(isset($_SESSION['role']))
 				              if($_SESSION['role'] == 0)
 				                {
 				               ?>
-							<li class="nav-item"><a class="nav-link" href="">Staff Function</a></li>
+							<!-- <li class="nav-item"><a class="nav-link" href="">Staff Function</a></li> -->
+							<li class="nav-item submenu dropdown">
+								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+								 aria-expanded="false">Staff Function</a>
+								<ul class="dropdown-menu">
+									<li class="nav-item"><a class="nav-link" href="report.php">Report</a></li>
+									<li class="nav-item"><a class="nav-link" href="#">Messages</a></li>
+
+									<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
+								</ul>
+							</li>
+
 							<?php
 				              }?><li class="nav-item">
 								<!-- <a href="#" class="nav-link search" id="search">

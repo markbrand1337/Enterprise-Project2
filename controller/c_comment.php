@@ -35,6 +35,14 @@ class c_Comment extends c_Router{
 		$data = array('CommentList'=>$commentlist);
 		return $data;
 	}
+	
+	public function getUserRecentCommentFromClass($id,$cid)
+	{
+		$model =new m_Comment();
+		$commentlist = $model->getUserRecentCommentFromClass($id,$cid);
+		$data = array('CommentList'=>$commentlist);
+		return $data;
+	}
 	public function getCommentCount($id)
 	{
 		$model =new m_Comment();

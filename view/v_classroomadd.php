@@ -21,7 +21,10 @@ if( isset($_POST['name']) && isset($_POST['tutor_id']) && isset($_POST['status']
 	&& strlen($_POST['status']) > 0 && strlen($_POST['status']) < 40
 ){
 		$controller = new c_Classroom();
-		$controller->AddClassroom($name,$tutor_id,$status);
+
+		
+		$id = $controller->AddClassroom($name,$tutor_id,$status);
+		$cuser->emailNotification($tutor_id,$id);
 }
 
 
@@ -46,6 +49,9 @@ if( isset($_POST['name']) && isset($_POST['tutor_id']) && isset($_POST['status']
 				  	<h4>
 					<select class="form-control form-control-lg border border-info" name="tutor_id" id="tutor_id">
 					<?php 
+					?>
+					<option value="0">No Tutor Yet.</option>
+					<?php
                     foreach($userlist as $tutor)
                    {
                     ?>

@@ -145,7 +145,7 @@ else{
 				    <h7 class="card-title pb-0 mb-0"><?=$oneuser->first_name?> <?=$oneuser->last_name?></h7>
 				    <form method="POST">
 				 
-				  <textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info mt-3" name="content" required="required" pattern="^.{1,150}$" rows="1" placeholder="What do you want to say?"></textarea>	
+				  <textarea type="text" class="col-12 single-input-primary form-control form-control-lg border border-info mt-3" name="content" required="required" pattern="^.{1,150}$" rows="1" placeholder="What do you want to comment?"></textarea>	
 						<div class="pt-3">
 						<h4><input  type="submit" class="genric-btn success circle px-2  col-sm-12 mb-sm-3 col-md-4 float-right" value="Comment" name="submit"></h4>
 					</div> 

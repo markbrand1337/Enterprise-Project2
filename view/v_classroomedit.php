@@ -30,6 +30,7 @@ if( isset($_POST['name']) && isset($_POST['tutor_id']) && isset($_POST['status']
 ){
 		$controller = new c_Classroom();
 		$controller->EditClassroom($id,$name,$tutor_id,$status);
+		$cuser->emailNotification($tutor_id,$id);
 }
 
 
@@ -51,6 +52,7 @@ if( isset($_POST['name']) && isset($_POST['tutor_id']) && isset($_POST['status']
 				
 				  <div class="form-select">
 					<select class="form-control form-control-lg border border-info" name="tutor_id" id="tutor_id">
+						<option value="0">No Tutor Yet</option>
 					<?php 
                     foreach($userlist as $tutor)
                    { if($tutor->user_id == $classroom->tutor_id)

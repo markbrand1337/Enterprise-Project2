@@ -17,11 +17,27 @@ class c_Classroom extends c_Router{
 		return $data;
 		
 	}
-	
+
+	public function getStudentCount($id)
+	{
+		$model= new m_Classroom();
+		$count = $model->getStudentCount($id);
+		// $data = array('ClassroomList'=>$count);
+		return $count;
+		
+	}
 	public function getAllStudentClassroom($id)
 	{
 		$model= new m_Classroom();
 		$classroomlist = $model->getAllStudentClassroom($id);
+		$data = array('ClassroomList'=>$classroomlist);
+		return $data;
+		
+	}
+	public function getAllTutorClassroom($id)
+	{
+		$model= new m_Classroom();
+		$classroomlist = $model->getAllTutorClassroom($id);
 		$data = array('ClassroomList'=>$classroomlist);
 		return $data;
 		
@@ -60,14 +76,16 @@ class c_Classroom extends c_Router{
 				unset($_SESSION['error']);
 			//echo '<script> location.replace("index.php"); </script>';
 			echo '<script> location.replace("classroom.php"); </script>';
+			
 		}
 		else
 		{
 			//fail
 			$_SESSION['error']='add fail';
-			echo '<script> location.replace("classroom_add.php"); </script>';
+			//echo '<script> location.replace("classroom_add.php"); </script>';
 
 		}
+		return $id;
 	}
 	public function EditClassroom($classroom_id,$name,$tutor_id,$note)
 	{
@@ -77,7 +95,7 @@ class c_Classroom extends c_Router{
 		
 		if($idd>0)
 		{
-			 print_r("succ c");
+			 //print_r("succ c");
 		 	//reg is succ
 			$_SESSION['success'] ='EditClassroom succeed!';
 			if(isset($_SESSION['error']))
@@ -87,12 +105,13 @@ class c_Classroom extends c_Router{
 		}
 		else
 		{	
-			print_r("fail c");
+			//print_r("fail c");
 			//fail
 			$_SESSION['error']='EditClasroom fail';
 			 echo '<script> location.replace("classroom.php"); </script>';
 
 		}
+		return $idd;
 	}
 
 	
