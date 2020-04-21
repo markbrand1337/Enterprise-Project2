@@ -86,11 +86,14 @@ if(isset($_SESSION['user_id']))
                 <tr>
                   <td><?=$class->classroom_id?></td>
                   <td><?=$class->name?></td>
+                  <?php if($class->tutor_id == 0){ ?>
+                      <td>No Tutor Yet.</td>
+                  <?php } else { ?>
                   <?php foreach($userlist as $user){
                     if($user->user_id == $class->tutor_id)
                     { ?>
                     <td><?=$user->first_name?> <?=$user->last_name?></td>
-                   <?php }
+                   <?php } }
                   } ?>
                   
                   <td> <?=$class->note?></td>
@@ -99,7 +102,7 @@ if(isset($_SESSION['user_id']))
                   <?php if(isset($_SESSION['role'])){
                          if($_SESSION['role'] == 0){
                     ?>
-  
+          
                   
                      <a href="classroom_edit.php?id=<?=$class->classroom_id?>"><i class="fa fa-fw fa-edit" style="color:#2D67EA; font-size:20px;" title="Edit this class info."></i></a>
                      <a href="classroom_detail.php?id=<?=$class->classroom_id?>"><i class="fa fa-fw fa-info" style="color:blue; font-size:20px;" title="View Class page."></i></a>
