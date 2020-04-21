@@ -117,7 +117,7 @@ CREATE TABLE `tblMeeting`
  `id`           int NOT NULL AUTO_INCREMENT,
  `meeting_date`         date ,
  `classroom_id` int NOT NULL ,
- `status`       varchar(45) ,
+ `note`       varchar(45) ,
  `start_at`     datetime ,
  `end_at`       datetime ,
 
