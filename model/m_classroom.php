@@ -50,10 +50,10 @@ class m_Classroom extends DBconnect
 public function EditClassroom($classroom_id,$name,$tutor_id,$note)
 		 {
 		 	 
-		 	$sql = "UPDATE tblclassroom SET name = '$name'tutor_id = '$tutor_id', note = '$note' where classroom_id='$classroom_id' ;";
+		 	$sql = "UPDATE tblclassroom SET name = ? ,tutor_id = ?, note = ? where classroom_id= ? ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($classroom_id,$name,$tutor_id,$note));
+		 	$result = $this->execute(array($name,$tutor_id,$note,$classroom_id));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
