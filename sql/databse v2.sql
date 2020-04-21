@@ -100,7 +100,7 @@ CREATE TABLE `tblClassroom`
  `classroom_id` int NOT NULL AUTO_INCREMENT,
  `name`         varchar(45) ,
  `tutor_id`      int  ,
- `status`       varchar(45),
+ `note`       varchar(45),
 
 PRIMARY KEY (`classroom_id`)
 );
