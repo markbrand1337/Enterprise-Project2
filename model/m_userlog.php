@@ -11,13 +11,13 @@ class m_UserLog extends DBconnect
 		return $userloglist;
 	}
 
-	public function AddUserLog($user_id,$last_activity_at)
+	public function AddUserLog($user_id)
 		 {
-		 	 
+		 	 $date = date("Y-m-d H:i:s");
 		 	$sql = "INSERT INTO tbluserlog(user_id,last_activity_at) values (?,?);";
 		 	$this->setQuery($sql);
 		  
-		 	$result = $this->execute(array($user_id,$last_activity_at));
+		 	$result = $this->execute(array($user_id,$date));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -26,13 +26,13 @@ class m_UserLog extends DBconnect
 		 		return false;
 		 }
 		 
-	public function EditUserLog($user_id,$last_activity_at)
+	public function EditUserLog($user_id)
 		 {
-		 	 
-		 	$sql = "UPDATE tbluserlog SET last_activity_at ='$last_activity_at' where user_id='$user_id' ;";
+		 	  $date = date("Y-m-d H:i:s");
+		 	$sql = "UPDATE tbluserlog SET last_activity_at ='$date' where user_id='$user_id' ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($user_id,$last_activity_at));
+		 	$result = $this->execute(array($user_id,$date));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();

@@ -234,13 +234,13 @@ class c_User extends c_Router{
 		
 		$muser = new m_User();
 		$id = $muser->register($first_name,$last_name,$email,$password,$role);
-		$muserlog=new m_UserLog();
-		$log =$muserlog->AddUserLog($id);
+		
 		// $id = 1;
 		if($id>0)
 		{
 
-
+			$muserlog=new m_UserLog();
+		$log =$muserlog->AddUserLog($id);
 			//reg is succ
 			$_SESSION['success'] ='registration succeed!';
 			if(isset($_SESSION['error']))

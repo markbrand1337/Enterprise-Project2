@@ -17,6 +17,13 @@ class m_Conversation extends DBconnect
 		$conversationlist = $this->getAllRows(array($id));
 		return $conversationlist;
 	}
+	public function getUserRecentConversation($id)
+	{
+		$sql = "SELECT  DISTINCT conversation_id FROM tblmessage WHERE from_id='$id' limit 3;";
+		$this->setQuery($sql);
+		$conversationlist = $this->getAllRows(array($id));
+		return $conversationlist;
+	}
 
 	public function AddConversation($user_one,$user_two)
 		 {
@@ -64,9 +71,15 @@ public function EditConversation($conversation_id,$user_one,$user_two)
 		 }
 	public function getOneConversation($conversation_id)
 			 {
-			 	$sql = "SELECT  user_one,user_two FROM tblconversation WHERE conversation_id='$conversation_id';";
+			 	$sql = "SELECT  * FROM tblconversation WHERE conversation_id='$conversation_id';";
 			 	$this->setQuery($sql);
 			 	return $this->getOneRow(array($conversation_id));
+			 }
+	public function getOneConversation2($id,$id2)
+			 {
+			 	$sql = "SELECT  * FROM tblconversation WHERE user_one = ? AND user_two = ?;";
+			 	$this->setQuery($sql);
+			 	return $this->getOneRow(array($id,$id2));
 			 }
 }
 ?>

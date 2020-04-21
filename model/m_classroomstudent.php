@@ -10,14 +10,14 @@ class m_ClassroomStudent extends DBconnect
 		$classroomstudentlist = $this->getAllRows();
 		return $classroomstudentlist;
 	}
-	public function getClassroomStudent($classroom_id)
+	public function getStudentList($classroom_id)
 	{
-		$sql = "SELECT  * FROM tblclassroomstudent WHERE classroom_id='$classroom_id';";
+		$sql = "SELECT  * FROM tblclassroomstudent WHERE classroom_id= ? ;";
 		$this->setQuery($sql);
 		$listclassroomstudent = $this->getAllRows(array($classroom_id));
 		return $listclassroomstudent;
 	}
-	public function getStudentClassroom($user_id)
+	public function getClassroomList($user_id)
 	{
 		$sql = "SELECT  * FROM tblclassroomstudent WHERE user_id='$user_id';";
 		$this->setQuery($sql);

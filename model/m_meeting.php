@@ -51,10 +51,10 @@ public function EditMeeting($id,$meeting_date,$classroom_id,$note,$start_at,$end
 		 public function StartMeeting($id,$start_at)
 		 {
 		 	 
-		 	$sql = "UPDATE  start_at = '$start_at' where id='$id' ;";
+		 	$sql = "UPDATE tblmeeting SET  start_at = ? where id= ? ;";
 		 	$this->setQuery($sql);
 		 	 
-		 	$result = $this->execute(array($id,$start_at));
+		 	$result = $this->execute(array($start_at,$id));
 		 	if($result)
 		 	{
 		 		return $this->getLastInserted();
@@ -65,7 +65,7 @@ public function EditMeeting($id,$meeting_date,$classroom_id,$note,$start_at,$end
 public function EndMeeting($id,$end_at)
 		 {
 		 	 
-		 	$sql = "UPDATE  end_at = '$end_at' where id='$id' ;";
+		 	$sql = "UPDATE tblmeeting SET  end_at = '$end_at' where id='$id' ;";
 		 	$this->setQuery($sql);
 		 	 
 		 	$result = $this->execute(array($id,$end_at));
@@ -93,7 +93,7 @@ public function EndMeeting($id,$end_at)
 		 }
 	public function getOneMeeting($id)
 			 {
-			 	$sql = "SELECT  meeting_date,classroom_id,note,start_at,end_at FROM tblmeeting WHERE id='$id';";
+			 	$sql = "SELECT  * FROM tblmeeting WHERE id='$id';";
 			 	$this->setQuery($sql);
 			 	return $this->getOneRow(array($id));
 			 }

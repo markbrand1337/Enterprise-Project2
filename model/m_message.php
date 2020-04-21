@@ -17,7 +17,21 @@ class m_Message extends DBconnect
 		$conversationlist = $this->getAllRows(array($id));
 		return $conversationlist;
 	}
+	public function getUserRecentConversation($id)
+	{
+		$sql = "SELECT  DISTINCT conversation_id FROM tblmessage WHERE from_id='$id';";
+		$this->setQuery($sql);
+		$conversationlist = $this->getAllRows(array($id));
+		return $conversationlist;
+	}
 
+	
+	public function getMessageCountLastWeek($id){
+		$sql = "SELECT COUNT(message_id) as message_count FROM `tblmessage` WHERE to_id = ? AND send_at >= DATE(NOW()) + INTERVAL -7 DAY;";
+		$this->setQuery($sql);
+		$count = $this->getOneRow(array($id));
+		return $count;
+	}
 	public function AddMessage($conversation_id,$content,$from_id,$to_id,$send_at)
 		 {
 		 	 

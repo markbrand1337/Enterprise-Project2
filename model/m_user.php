@@ -46,13 +46,43 @@ class m_User extends DBconnect
 	}
 	public function getAllStudentNotFromClass($class)
 	{
-		$sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where c.classroom_id != '$class'";
+		// $sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where c.classroom_id != '$class'";
 		$sql1="SELECT * FROM tbluser where user_id NOT IN (SELECT user_id from tblclassroomstudent where classroom_id = ? )";
-
+		// $sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL";
 
 
 		$this->setQuery($sql1);
 		$studentlist = $this->getAllRows(array($class));
+		return $studentlist;
+	}
+	public function getAvailableStudent()
+	{
+		
+		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1";
+
+
+		$this->setQuery($sql2);
+		$studentlist = $this->getAllRows();
+		return $studentlist;
+	}
+	public function searchAvailableStudent($name)
+	{
+		
+		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1 AND (first_name like'%$name%' or last_name like '%$name%');";
+
+
+		$this->setQuery($sql2);
+		$studentlist = $this->getAllRows(array($name));
+		return $studentlist;
+	}
+	public function getAvailableTutor()
+	{
+		
+		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL";
+
+
+		$this->setQuery($sql2);
+		$studentlist = $this->getAllRows();
 		return $studentlist;
 	}
 
@@ -112,7 +142,7 @@ class m_User extends DBconnect
 		 }
 	public function getOneUser($user_id)
 			 {
-			 	$sql = "SELECT first_name,last_name,email,password,role FROM tbluser WHERE user_id='$user_id';";
+			 	$sql = "SELECT * FROM tbluser WHERE user_id='$user_id';";
 			 	$this->setQuery($sql);
 			 	return $this->getOneRow(array($user_id));
 			 }

@@ -542,6 +542,7 @@ if(isset($_SESSION['user_id']))
 		<!-- column1 -->
 		<!-- column2 -->
 		<div class="col-md-8 col-sm-12">
+			<?php if($role == 2 && $role == 0 ){ ?>
 			<div class="col-12 pb-5">
 				<h5> Filter for Interaction in Class : </h5>
 				<?php 
@@ -579,6 +580,7 @@ if(isset($_SESSION['user_id']))
 							
 						</form>
 			</div>
+			<?php } ?>
 			<div name="post"  id="post" class="col-12 pb-5">
 				<div class="row"> 
 					<h3> Post </h3>

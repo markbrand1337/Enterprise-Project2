@@ -17,7 +17,46 @@ class m_Document extends DBconnect
 	// 	$conversationlist = $this->getAllRows(array($id));
 	// 	return $conversationlist;
 	// }
+	
+	public function getAllClassDocument($id)
+	{
+		$sql = "SELECT * FROM tbldocument WHERE classroom_id='$id';";
+		$this->setQuery($sql);
+		$documentlist = $this->getAllRows(array($id));
+		return $documentlist;
+	}
+	public function getAllClassDocumentFromTutor($id)
+	{
+	
 
+		$sql = "SELECT p.id as id, p.classroom_id as classroom_id, p.user_id as user_id, u.role as role, p.classroom_id as classroom_id, p.file as file, p.name as name , p.description as description FROM tbldocument as p inner join tbluser as u  ON (u.user_id = p.user_id) where classroom_id='$id' and u.role = 2;";
+		$this->setQuery($sql);
+		$documentlist = $this->getAllRows(array($id));
+		return $documentlist;
+	}
+	public function getAllClassDocumentFromStudent($id)
+	{
+	
+
+		$sql = "SELECT p.id as id, p.classroom_id as classroom_id, p.user_id as user_id, u.role as role, p.classroom_id as classroom_id, p.file as file, p.name as name , p.description as description FROM tbldocument as p inner join tbluser as u  ON (u.user_id = p.user_id) where classroom_id='$id' and u.role = 1;";
+		$this->setQuery($sql);
+		$documentlist = $this->getAllRows(array($id));
+		return $documentlist;
+	}
+	public function getAllUserDocument($id)
+	{
+		$sql = "SELECT * FROM tbldocument WHERE user_id='$id';";
+		$this->setQuery($sql);
+		$documentlist = $this->getAllRows(array($id));
+		return $documentlist;
+	}
+	public function getAllUserDocumentFromClass($id,$classroom_id)
+	{
+		$sql = "SELECT * FROM tbldocument WHERE user_id= ? and classroom_id = ?;";
+		$this->setQuery($sql);
+		$documentlist = $this->getAllRows(array($id,$classroom_id));
+		return $documentlist;
+	}
 	public function AddDocument($classroom_id,$user_id,$file,$name,$description)
 		 {
 		 	 

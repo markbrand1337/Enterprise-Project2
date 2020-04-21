@@ -10,7 +10,28 @@ class m_Classroom extends DBconnect
 		$classroomlist = $this->getAllRows();
 		return $classroomlist;
 	}
-
+	public function getAllStudentClassroom($user_id)
+	{
+		$sql = "SELECT * FROM tblclassroom as c inner join tblclassroomstudent as cs on c.classroom_id = cs.classroom_id where cs.user_id = ?";
+		$this->setQuery($sql);
+		$classroomlist = $this->getAllRows(array($user_id));
+		return $classroomlist;
+	}
+	public function getAllTutorClassroom($user_id)
+	{
+		$sql = "SELECT * FROM tblclassroom  where tutor_id = ?";
+		$this->setQuery($sql);
+		$classroomlist = $this->getAllRows(array($user_id));
+		return $classroomlist;
+	}
+	
+	public function getStudentCount($classroom_id)
+	{
+		$sql = "SELECT COUNT(user_id) as student_count FROM `tblclassroomstudent` WHERE classroom_id = ?;";
+		$this->setQuery($sql);
+		$count = $this->getOneRow(array($classroom_id));
+		return $count;
+	}
 	public function AddClassroom($name,$tutor_id,$note)
 		 {
 		 	 

@@ -1,6 +1,7 @@
 <?php
 include_once("controller/c_router.php");
 include_once("model/m_classroom.php");
+
 class c_Classroom extends c_Router{
 	public function getClassroom()
 	{
