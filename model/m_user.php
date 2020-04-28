@@ -17,9 +17,9 @@ class m_User extends DBconnect
 	}
 	public function searchStudentByName($name)
 	{
-		$sql = "SELECT  * FROM tbluser WHERE first_name like'%$name%' or last_name like '%$name%' ;";
+		$sql = "SELECT  * FROM tbluser WHERE first_name like CONCAT('%',?,'%') or last_name like CONCAT('%',?,'%') ;";
 		$this->setQuery($sql);
-		$userlist = $this->getAllRows(array($name));
+		$userlist = $this->getAllRows(array($name, $name));
 		return $userlist;
 	}
 	public function getAllTutor()
@@ -68,11 +68,11 @@ class m_User extends DBconnect
 	public function searchAvailableStudent($name)
 	{
 
-		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1 AND (first_name like'%$name%' or last_name like '%$name%');";
+		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1 AND (first_name like CONCAT('%',?,'%') or last_name like CONCAT('%',?,'%'));";
 
 
 		$this->setQuery($sql2);
-		$studentlist = $this->getAllRows(array($name));
+		$studentlist = $this->getAllRows(array($name, $name));
 		return $studentlist;
 	}
 	public function getAvailableTutor()
@@ -112,10 +112,10 @@ class m_User extends DBconnect
 	public function EditUser($user_id, $first_name, $last_name, $email, $password, $role)
 	{
 
-		$sql = "UPDATE tbluser SET first_name = '$first_name',last_name = '$last_name' ,email = '$email' ,password = '$password',role ='$role' where user_id='$user_id' ;";
+		$sql = "UPDATE tbluser SET first_name = ?,last_name = ? ,email = ? ,password = ?,role = ? where user_id= ? ;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($user_id, $first_name, $last_name, $email, $password, $role));
+		$result = $this->execute(array($first_name, $last_name, $email, $password, $role, $user_id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -136,7 +136,7 @@ class m_User extends DBconnect
 	}
 	public function getOneUser($user_id)
 	{
-		$sql = "SELECT * FROM tbluser WHERE user_id='$user_id';";
+		$sql = "SELECT * FROM tbluser WHERE user_id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($user_id));
 	}

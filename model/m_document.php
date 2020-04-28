@@ -86,7 +86,7 @@ class m_Document extends DBconnect
 	public function DeleteDocument($id)
 	{
 
-		$sql = "DELETE FROM tbldocument where id='$id';";
+		$sql = "DELETE FROM tbldocument where id= ?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($id));
@@ -97,7 +97,7 @@ class m_Document extends DBconnect
 	}
 	public function getOneDocument($id)
 	{
-		$sql = "SELECT  * FROM tbldocument WHERE id='$id';";
+		$sql = "SELECT  * FROM tbldocument WHERE id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($id));
 	}

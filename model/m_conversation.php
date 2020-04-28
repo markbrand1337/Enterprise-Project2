@@ -12,14 +12,14 @@ class m_Conversation extends DBconnect
 	}
 	public function getAllUserConversation($id)
 	{
-		$sql = "SELECT  * FROM tblconversation WHERE user_one='$id' or user_two='$id';";
+		$sql = "SELECT  * FROM tblconversation WHERE user_one= ? or user_two= ?;";
 		$this->setQuery($sql);
-		$conversationlist = $this->getAllRows(array($id));
+		$conversationlist = $this->getAllRows(array($id, $id));
 		return $conversationlist;
 	}
 	public function getUserRecentConversation($id)
 	{
-		$sql = "SELECT  DISTINCT conversation_id FROM tblmessage WHERE from_id='$id' limit 3;";
+		$sql = "SELECT  DISTINCT conversation_id FROM tblmessage WHERE from_id= ? limit 3;";
 		$this->setQuery($sql);
 		$conversationlist = $this->getAllRows(array($id));
 		return $conversationlist;
@@ -41,10 +41,10 @@ class m_Conversation extends DBconnect
 	public function EditConversation($conversation_id, $user_one, $user_two)
 	{
 
-		$sql = "UPDATE tblconversation SET user_one = '$user_one',user_two = '$user_two' where conversation_id='$conversation_id' ;";
+		$sql = "UPDATE tblconversation SET user_one = ?,user_two = ? where conversation_id= ? ;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($conversation_id, $user_one, $user_two));
+		$result = $this->execute(array($user_one, $user_two, $conversation_id,));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -54,7 +54,7 @@ class m_Conversation extends DBconnect
 	public function DeleteConversation($conversation_id)
 	{
 
-		$sql = "DELETE FROM tblconversation where conversation_id='$conversation_id';";
+		$sql = "DELETE FROM tblconversation where conversation_id= ?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($conversation_id));
@@ -65,7 +65,7 @@ class m_Conversation extends DBconnect
 	}
 	public function getOneConversation($conversation_id)
 	{
-		$sql = "SELECT  * FROM tblconversation WHERE conversation_id='$conversation_id';";
+		$sql = "SELECT  * FROM tblconversation WHERE conversation_id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($conversation_id));
 	}

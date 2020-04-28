@@ -13,7 +13,7 @@ class m_Meeting extends DBconnect
 
 	public function getAllClassMeeting($id)
 	{
-		$sql = "SELECT  * FROM tblmeeting WHERE classroom_id='$id';";
+		$sql = "SELECT  * FROM tblmeeting WHERE classroom_id= ?;";
 		$this->setQuery($sql);
 		$meetinglist = $this->getAllRows(array($id));
 		return $meetinglist;
@@ -35,10 +35,10 @@ class m_Meeting extends DBconnect
 	public function EditMeeting($id, $meeting_date, $classroom_id, $note, $start_at, $end_at)
 	{
 
-		$sql = "UPDATE tblmeeting SET meeting_date = '$meeting_date',classroom_id = '$classroom_id' ,note = '$note',note = '$note', end_at = '$end_at' where id='$id' ;";
+		$sql = "UPDATE tblmeeting SET meeting_date = ?,classroom_id = ? ,note = '$note',note = ?, end_at = ? where id= ? ;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($id, $meeting_date, $classroom_id, $note, $start_at, $end_at));
+		$result = $this->execute(array($meeting_date, $classroom_id, $note, $start_at, $end_at, $id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -59,10 +59,10 @@ class m_Meeting extends DBconnect
 	public function EndMeeting($id, $end_at)
 	{
 
-		$sql = "UPDATE tblmeeting SET  end_at = '$end_at' where id='$id' ;";
+		$sql = "UPDATE tblmeeting SET  end_at = ? where id= ? ;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($id, $end_at));
+		$result = $this->execute(array($end_at, $id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -72,7 +72,7 @@ class m_Meeting extends DBconnect
 	public function DeleteMeeting($id)
 	{
 
-		$sql = "DELETE FROM tblmeeting where id='$id';";
+		$sql = "DELETE FROM tblmeeting where id= ?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($id));
@@ -83,7 +83,7 @@ class m_Meeting extends DBconnect
 	}
 	public function getOneMeeting($id)
 	{
-		$sql = "SELECT  * FROM tblmeeting WHERE id='$id';";
+		$sql = "SELECT  * FROM tblmeeting WHERE id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($id));
 	}

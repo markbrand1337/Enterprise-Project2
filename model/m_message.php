@@ -12,7 +12,7 @@ class m_Message extends DBconnect
 	}
 	public function getAllConversationMessage($id)
 	{
-		$sql = "SELECT  * FROM tblmessage WHERE conversation_id='$id';";
+		$sql = "SELECT  * FROM tblmessage WHERE conversation_id= ?;";
 		$this->setQuery($sql);
 		$conversationlist = $this->getAllRows(array($id));
 		return $conversationlist;
@@ -49,10 +49,10 @@ class m_Message extends DBconnect
 	public function EditMessage($message_id, $conversation_id, $content, $from_id, $to_id, $send_at)
 	{
 
-		$sql = "UPDATE tblmessage SET conversation_id = '$conversation_id',content = '$content' ,from_id = '$from_id',to_id = '$to_id', send_at = '$send_at' where message_id='$message_id' ;";
+		$sql = "UPDATE tblmessage SET conversation_id = ?,content = ? ,from_id = ?,to_id = ?, send_at = ? where message_id= ?;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($message_id, $conversation_id, $content, $from_id, $to_id, $send_at));
+		$result = $this->execute(array($conversation_id, $content, $from_id, $to_id, $send_at, $message_id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -62,7 +62,7 @@ class m_Message extends DBconnect
 	public function DeleteMessage($message_id)
 	{
 
-		$sql = "DELETE FROM tblmessage where message_id='$message_id';";
+		$sql = "DELETE FROM tblmessage where message_id= ?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($message_id));
@@ -73,7 +73,7 @@ class m_Message extends DBconnect
 	}
 	public function getOneMessage($message_id)
 	{
-		$sql = "SELECT  conversation_id, content, from_id, to_id, send_at FROM tblmessage WHERE message_id='$message_id';";
+		$sql = "SELECT  conversation_id, content, from_id, to_id, send_at FROM tblmessage WHERE message_id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($message_id));
 	}

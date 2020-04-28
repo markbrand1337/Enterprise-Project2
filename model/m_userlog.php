@@ -27,10 +27,10 @@ class m_UserLog extends DBconnect
 	public function EditUserLog($user_id)
 	{
 		$date = date("Y-m-d H:i:s");
-		$sql = "UPDATE tbluserlog SET last_activity_at ='$date' where user_id='$user_id' ;";
+		$sql = "UPDATE tbluserlog SET last_activity_at = ? where user_id= ? ;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($user_id, $date));
+		$result = $this->execute(array($date, $user_id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -40,7 +40,7 @@ class m_UserLog extends DBconnect
 	public function DeleteUserLog($user_id)
 	{
 
-		$sql = "DELETE FROM tbluserlog where user_id='$user_id';";
+		$sql = "DELETE FROM tbluserlog where user_id=?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($user_id));
@@ -51,7 +51,7 @@ class m_UserLog extends DBconnect
 	}
 	public function getOneUserLog($user_id)
 	{
-		$sql = "SELECT last_activity_at FROM tbluserlog WHERE user_id='$user_id';";
+		$sql = "SELECT last_activity_at FROM tbluserlog WHERE user_id=?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($user_id));
 	}

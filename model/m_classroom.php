@@ -61,7 +61,7 @@ class m_Classroom extends DBconnect
 	public function DeleteClassroom($classroom_id)
 	{
 
-		$sql = "DELETE FROM tblclassroom where classroom_id='$classroom_id';";
+		$sql = "DELETE FROM tblclassroom where classroom_id=?;";
 		$this->setQuery($sql);
 
 		$result = $this->execute(array($classroom_id));
@@ -72,7 +72,7 @@ class m_Classroom extends DBconnect
 	}
 	public function getOneClassroom($classroom_id)
 	{
-		$sql = "SELECT  classroom_id,name,tutor_id,note FROM tblclassroom WHERE classroom_id='$classroom_id';";
+		$sql = "SELECT  classroom_id,name,tutor_id,note FROM tblclassroom WHERE classroom_id= ?;";
 		$this->setQuery($sql);
 		return $this->getOneRow(array($classroom_id));
 	}

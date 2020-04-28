@@ -19,7 +19,7 @@ class m_ClassroomStudent extends DBconnect
 	}
 	public function getClassroomList($user_id)
 	{
-		$sql = "SELECT  * FROM tblclassroomstudent WHERE user_id='$user_id';";
+		$sql = "SELECT  * FROM tblclassroomstudent WHERE user_id= ?;";
 		$this->setQuery($sql);
 		$liststudentclassroom = $this->getAllRows(array($user_id));
 		return $liststudentclassroom;
@@ -28,7 +28,7 @@ class m_ClassroomStudent extends DBconnect
 	public function AddClassroomStudent($user_id, $classroom_id)
 	{
 
-		$sql2 = "SELECT  *  FROM tblclassroomstudent WHERE user_id='$user_id' and classroom_id='$classroom_id';";
+		$sql2 = "SELECT  *  FROM tblclassroomstudent WHERE user_id= ? and classroom_id= ?;";
 		$this->setQuery($sql2);
 		$res = $this->getAllRows(array($user_id, $classroom_id));
 		$count = mysqli_num_rows($res);
@@ -48,10 +48,10 @@ class m_ClassroomStudent extends DBconnect
 	public function DeleteClassroomStudent($user_id, $classroom_id)
 	{
 
-		$sql = "DELETE FROM tblclassroomstudent where classroom_id='$classroom_id' and user_id = '$user_id';";
+		$sql = "DELETE FROM tblclassroomstudent where classroom_id= ? and user_id = ?;";
 		$this->setQuery($sql);
 
-		$result = $this->execute(array($user_id, $classroom_id));
+		$result = $this->execute(array($classroom_id, $user_id));
 		if ($result) {
 			return $this->getLastInserted();
 		} else
@@ -59,8 +59,8 @@ class m_ClassroomStudent extends DBconnect
 	}
 	public function getOneClasroomStudent($user_id, $classroom_id)
 	{
-		$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id='$classroom_id' and user_id='$user_id';";
+		$sql = "SELECT  user_id FROM tblclassroomstudent WHERE classroom_id= ? and user_id= ?;";
 		$this->setQuery($sql);
-		return $this->getOneRow(array($user_id, $classroom_id));
+		return $this->getOneRow(array($classroom_id, $user_id));
 	}
 }
