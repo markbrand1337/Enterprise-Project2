@@ -5,5 +5,3 @@ class c_Web extends c_Router{
 		$this->loadView('v_index');
 	}
 }
-
-?>

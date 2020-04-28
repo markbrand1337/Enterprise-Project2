@@ -62,16 +62,16 @@ class c_Comment extends c_Router{
 
 			//reg is succ
 			$_SESSION['success'] ='add succeed!';
-			if(isset($_SESSION['error']))
-				unset($_SESSION['error']);
-			echo '<script> location.replace("index.php"); </script>';
+			if(isset($_SESSION['comment_error']))
+				unset($_SESSION['comment_error']);
+			echo '<script> location.replace("post_detail.php?id='.$post_id.'"); </script>';
 			
 		}
 		else
 		{
 			//fail
-			$_SESSION['error']='add fail';
-			echo '<script> location.replace("index.php"); </script>';
+			$_SESSION['comment_error']='add fail';
+			echo '<script> location.replace("post_detail.php?id='.$post_id.'"); </script>';
 
 		}
 	}
@@ -87,17 +87,19 @@ class c_Comment extends c_Router{
 			 print_r("succ c");
 		 	//reg is succ
 			$_SESSION['success'] ='Edit succeed!';
-			if(isset($_SESSION['error']))
-				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			if(isset($_SESSION['comment_error']))
+				unset($_SESSION['comment_error']);
+			 echo '<script> location.replace("post_detail.php?id='.$post_id.'"); </script>';
+
 			
 		}
 		else
 		{	
 			print_r("fail c");
 			//fail
-			$_SESSION['error']='Edit fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			$_SESSION['comment_error']='Edit fail';
+			echo '<script> location.replace("post_detail.php?id='.$post_id.'"); </script>';
+
 
 		}
 	}
@@ -127,7 +129,7 @@ class c_Comment extends c_Router{
 			$_SESSION['success'] ='Delete succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 			
 		}
 		else
@@ -135,11 +137,8 @@ class c_Comment extends c_Router{
 			
 			//fail
 			$_SESSION['error']='Delete fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 
 		}
 	}
 }
-
-
-?>

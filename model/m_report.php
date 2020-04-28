@@ -3,7 +3,8 @@ include_once('model/dbconnect.php');
 class m_Report extends DBconnect
 {
 
-	public function getReceivedMessageCountLastWeek($id){
+	public function getReceivedMessageCountLastWeek($id)
+	{
 		$sql = "SELECT COUNT(message_id) as message_count 
 		FROM tblmessage 
 		WHERE to_id = ? 
@@ -12,7 +13,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getReceivedMessageCount($id){
+	public function getReceivedMessageCount($id)
+	{
 		$sql = "SELECT COUNT(message_id) as message_count 
 		FROM tblmessage 
 		WHERE to_id = ?;";
@@ -20,7 +22,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getSentMessageCountLastWeek($id){
+	public function getSentMessageCountLastWeek($id)
+	{
 		$sql = "SELECT COUNT(message_id) as message_count 
 		FROM tblmessage 
 		WHERE from_id = ? 
@@ -29,7 +32,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getSentMessageCount($id){
+	public function getSentMessageCount($id)
+	{
 		$sql = "SELECT COUNT(message_id) as message_count 
 		FROM tblmessage 
 		WHERE from_id = ?;";
@@ -37,16 +41,18 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getAllMessageCount(){
+	public function getAllMessageCount()
+	{
 		$sql = "SELECT COUNT(message_id) as message_count 
 		FROM tblmessage ";
 		$this->setQuery($sql);
 		$count = $this->getOneRow();
 		return $count;
 	}
-	
-	           
-	public function getAverageSentMessageCount(){
+
+
+	public function getAverageSentMessageCount()
+	{
 		$sql = "SELECT COUNT(message_id) as message_count ,
 		count(DISTINCT from_id) as user_count, 
 		COUNT(message_id) / COUNT(DISTINCT from_id) as message_average 
@@ -55,7 +61,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageTutorSentMessageCount(){
+	public function getAverageTutorSentMessageCount()
+	{
 		$sql = "SELECT COUNT(m.message_id) as message_count ,
 		count(DISTINCT m.from_id) as user_count, 
 		COUNT(m.message_id) / COUNT(DISTINCT m.from_id) as message_average 
@@ -67,7 +74,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageStudentSentMessageCount(){
+	public function getAverageStudentSentMessageCount()
+	{
 		$sql = "SELECT COUNT(m.message_id) as message_count ,
 		count(DISTINCT m.from_id) as user_count, 
 		COUNT(m.message_id) / COUNT(DISTINCT m.from_id) as message_average 
@@ -80,7 +88,8 @@ class m_Report extends DBconnect
 		return $count;
 	}
 
-	public function getAverageReceivedMessageCount(){
+	public function getAverageReceivedMessageCount()
+	{
 		$sql = "SELECT COUNT(message_id) as message_count ,
 		count(DISTINCT to_id) as user_count, 
 		COUNT(message_id) / COUNT(DISTINCT to_id) as message_average 
@@ -89,7 +98,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageTutorReceivedMessageCount(){
+	public function getAverageTutorReceivedMessageCount()
+	{
 		$sql = "SELECT COUNT(m.message_id) as message_count ,
 		count(DISTINCT m.to_id) as user_count, 
 		COUNT(m.message_id) / COUNT(DISTINCT m.to_id) as message_average 
@@ -101,7 +111,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageStudentReceivedMessageCount(){
+	public function getAverageStudentReceivedMessageCount()
+	{
 		$sql = "SELECT COUNT(m.message_id) as message_count ,
 		count(DISTINCT m.to_id) as user_count, 
 		COUNT(m.message_id) / COUNT(DISTINCT m.to_id) as message_average 
@@ -115,14 +126,16 @@ class m_Report extends DBconnect
 	}
 
 
-	public function getAllDocumentCount(){
+	public function getAllDocumentCount()
+	{
 		$sql = "SELECT COUNT(id) as document_count 
 		FROM tbldocument ";
 		$this->setQuery($sql);
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageDocumentCount(){
+	public function getAverageDocumentCount()
+	{
 		$sql = "SELECT COUNT(id) as document_count ,
 		count(DISTINCT user_id) as user_count, 
 		COUNT(id) / COUNT(DISTINCT user_id) as document_average 
@@ -131,7 +144,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageClassDocumentCount(){
+	public function getAverageClassDocumentCount()
+	{
 		$sql = "SELECT COUNT(id) as document_count ,
 		count(DISTINCT classroom_id) as classroom_count, 
 		COUNT(id) / COUNT(DISTINCT classroom_id) as document_average 
@@ -141,7 +155,8 @@ class m_Report extends DBconnect
 		return $count;
 	}
 
-	public function getAverageStudentDocumentCount(){
+	public function getAverageStudentDocumentCount()
+	{
 		$sql = "SELECT COUNT(m.id) as document_count ,
 		count(DISTINCT m.user_id) as user_count, 
 		COUNT(m.id) / COUNT(DISTINCT m.user_id) as document_average 
@@ -153,7 +168,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageTutorDocumentCount(){
+	public function getAverageTutorDocumentCount()
+	{
 		$sql = "SELECT COUNT(m.id) as document_count ,
 		count(DISTINCT m.user_id) as user_count, 
 		COUNT(m.id) / COUNT(DISTINCT m.user_id) as document_average 
@@ -165,14 +181,16 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getPostCount($id){
+	public function getPostCount($id)
+	{
 		$sql = "SELECT COUNT(post_id) as post_count 
 		FROM tblpost WHERE user_id = ?;";
 		$this->setQuery($sql);
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getAveragePostCount(){
+	public function getAveragePostCount()
+	{
 		$sql = "SELECT COUNT(post_id) as post_count ,
 		count(DISTINCT user_id) as user_count, 
 		COUNT(post_id) / COUNT(DISTINCT user_id) as post_average 
@@ -181,7 +199,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAveragePostCountPerClass(){
+	public function getAveragePostCountPerClass()
+	{
 		$sql = "SELECT COUNT(post_id) as post_count ,
 		count(DISTINCT in_class) as class_count, 
 		COUNT(post_id) / COUNT(DISTINCT in_class) as post_average 
@@ -191,7 +210,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageStudentPostCount(){
+	public function getAverageStudentPostCount()
+	{
 		$sql = "SELECT COUNT(m.post_id) as post_count ,
 		count(DISTINCT m.user_id) as user_count, 
 		COUNT(m.post_id) / COUNT(DISTINCT m.user_id) as post_average 
@@ -201,7 +221,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAverageTutorPostCount(){
+	public function getAverageTutorPostCount()
+	{
 		$sql = "SELECT COUNT(m.post_id) as post_count ,
 		count(DISTINCT m.user_id) as user_count, 
 		COUNT(m.post_id) / COUNT(DISTINCT m.user_id) as post_average 
@@ -213,28 +234,32 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getAllPostCount(){
+	public function getAllPostCount()
+	{
 		$sql = "SELECT COUNT(post_id) as post_count 
 		FROM tblpost;";
 		$this->setQuery($sql);
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getCommentCount($id){
+	public function getCommentCount($id)
+	{
 		$sql = "SELECT COUNT(comment_id) as comment_count 
 		FROM tblcomment WHERE user_id = ?;";
 		$this->setQuery($sql);
 		$count = $this->getOneRow(array($id));
 		return $count;
 	}
-	public function getAllCommentCount(){
+	public function getAllCommentCount()
+	{
 		$sql = "SELECT COUNT(comment_id) as comment_count 
 		FROM tblcomment;";
 		$this->setQuery($sql);
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getInactiveStudentCount(){
+	public function getInactiveStudentCount()
+	{
 		$sql = "SELECT COUNT(u.user_id) as student_count 
 		FROM tbluser as u 
 		inner join tbluserlog as l 
@@ -245,7 +270,8 @@ class m_Report extends DBconnect
 		$count = $this->getOneRow();
 		return $count;
 	}
-	public function getInactiveStudentCount2(){
+	public function getInactiveStudentCount2()
+	{
 		$sql = "SELECT COUNT(u.user_id) as student_count 
 		FROM tbluser as u 
 		inner join tbluserlog as l 
@@ -256,7 +282,8 @@ class m_Report extends DBconnect
 		return $count;
 	}
 
-	public function getInactiveStudent(){
+	public function getInactiveStudent()
+	{
 		$sql = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role, l.last_activity_at 
 		FROM tbluser as u 
 		inner join tbluserlog as l 
@@ -267,7 +294,8 @@ class m_Report extends DBconnect
 		$studentlist = $this->getAllRows();
 		return $studentlist;
 	}
-	public function getInactiveStudent2(){
+	public function getInactiveStudent2()
+	{
 		$sql = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role, l.last_activity_at 
 		FROM tbluser as u 
 		inner join tbluserlog as l 
@@ -281,8 +309,8 @@ class m_Report extends DBconnect
 	//student w no class
 	public function getAvailableStudent()
 	{
-		
-		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role 
+
+		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role 
 		FROM tbluser as u 
 		LEFT OUTER JOIN tblclassroomstudent as cs 
 		ON (u.user_id = cs.user_id) 
@@ -296,8 +324,8 @@ class m_Report extends DBconnect
 	}
 	public function getAvailableStudentCount()
 	{
-		
-		$sql2 ="SELECT COUNT(u.user_id) as student_count 
+
+		$sql2 = "SELECT COUNT(u.user_id) as student_count 
 		FROM tbluser as u 
 		LEFT OUTER JOIN tblclassroomstudent as cs
 		ON (u.user_id = cs.user_id) 
@@ -310,4 +338,3 @@ class m_Report extends DBconnect
 		return $count;
 	}
 }
-?>

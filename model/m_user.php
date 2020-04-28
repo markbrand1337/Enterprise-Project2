@@ -47,7 +47,7 @@ class m_User extends DBconnect
 	public function getAllStudentNotFromClass($class)
 	{
 		// $sql = "SELECT user_id,first_name,last_name,email,password,role FROM tbluser.u inner join tblclassroomstudent.c on u.user_id = c.user_id where c.classroom_id != '$class'";
-		$sql1="SELECT * FROM tbluser where user_id NOT IN (SELECT user_id from tblclassroomstudent where classroom_id = ? )";
+		$sql1 = "SELECT * FROM tbluser where user_id NOT IN (SELECT user_id from tblclassroomstudent where classroom_id = ? )";
 		// $sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL";
 
 
@@ -57,8 +57,8 @@ class m_User extends DBconnect
 	}
 	public function getAvailableStudent()
 	{
-		
-		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1";
+
+		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1";
 
 
 		$this->setQuery($sql2);
@@ -67,8 +67,8 @@ class m_User extends DBconnect
 	}
 	public function searchAvailableStudent($name)
 	{
-		
-		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1 AND (first_name like'%$name%' or last_name like '%$name%');";
+
+		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL AND u.role = 1 AND (first_name like'%$name%' or last_name like '%$name%');";
 
 
 		$this->setQuery($sql2);
@@ -77,8 +77,8 @@ class m_User extends DBconnect
 	}
 	public function getAvailableTutor()
 	{
-		
-		$sql2 ="SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL";
+
+		$sql2 = "SELECT u.user_id, u.first_name, u.last_name,u.email, u.role FROM tbluser as u LEFT OUTER JOIN tblclassroomstudent as cs ON (u.user_id = cs.user_id) WHERE cs.user_id IS NULL";
 
 
 		$this->setQuery($sql2);
@@ -86,65 +86,71 @@ class m_User extends DBconnect
 		return $studentlist;
 	}
 
-	public function register($first_name,$last_name,$email,$password,$role)
-		 {
-		 	//the inset sql statement with ? is parameter
-		 	
-		 	$sql = "INSERT INTO tbluser(first_name,last_name,email,password,role) values (?,?,?,?,?);";
-		 	$this->setQuery($sql);
-		 	//before insert , must encrypt pass to md5
-		 	//call function to execute with array as parameter
-		 	$result = $this->execute(array($first_name,$last_name,$email,md5($password),$role));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	public function register($first_name, $last_name, $email, $password, $role)
+	{
+		//the inset sql statement with ? is parameter
 
- public function login($email, $md5pass)
- {
- 	
- 	$sql = "SELECT * FROM tbluser WHERE email=? and password=?;";
- 	$this->setQuery($sql);
- 	return $this->getOneRow(array($email,$md5pass));
- }
-		 
-	public function EditUser($user_id,$first_name,$last_name,$email,$password,$role)
-		 {
-		 	 
-		 	$sql = "UPDATE tbluser SET first_name = '$first_name',last_name = '$last_name' ,email = '$email' ,password = '$password',role ='$role' where user_id='$user_id' ;";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($user_id,$first_name,$last_name,$email,$password,$role));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+		$sql = "INSERT INTO tbluser(first_name,last_name,email,password,role) values (?,?,?,?,?);";
+		$this->setQuery($sql);
+		//before insert , must encrypt pass to md5
+		//call function to execute with array as parameter
+		$result = $this->execute(array($first_name, $last_name, $email, md5($password), $role));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
+
+	public function login($email, $md5pass)
+	{
+
+		$sql = "SELECT * FROM tbluser WHERE email=? and password=?;";
+		$this->setQuery($sql);
+		return $this->getOneRow(array($email, $md5pass));
+	}
+
+	public function EditUser($user_id, $first_name, $last_name, $email, $password, $role)
+	{
+
+		$sql = "UPDATE tbluser SET first_name = '$first_name',last_name = '$last_name' ,email = '$email' ,password = '$password',role ='$role' where user_id='$user_id' ;";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($user_id, $first_name, $last_name, $email, $password, $role));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 
 	public function DeleteUser($user_id)
-		 {
-		 	 
-		 	$sql = "DELETE FROM tbluser where user_id='$user_id';";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($user_id));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	{
+
+		$sql = "DELETE FROM tbluser where user_id='$user_id';";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($user_id));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 	public function getOneUser($user_id)
-			 {
-			 	$sql = "SELECT * FROM tbluser WHERE user_id='$user_id';";
-			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($user_id));
-			 }
+	{
+		$sql = "SELECT * FROM tbluser WHERE user_id='$user_id';";
+		$this->setQuery($sql);
+		return $this->getOneRow(array($user_id));
+	}
+
+	public function getUserByEmail($email)
+	{
+
+		$sql2 = "SELECT COUNT(user_id) as user_count 
+		FROM tbluser 
+		WHERE email = ?";
+
+
+		$this->setQuery($sql2);
+		$count = $this->getOneRow(array($email));
+		return $count;
+	}
 }
-?>

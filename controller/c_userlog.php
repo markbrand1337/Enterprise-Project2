@@ -112,6 +112,3 @@ class c_UserLog extends c_Router{
 		}
 	}
 }
-
-
-?>

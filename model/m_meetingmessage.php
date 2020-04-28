@@ -18,55 +18,48 @@ class m_MeetingMessage extends DBconnect
 		return $conversationlist;
 	}
 
-	public function AddMessage($id,$content,$from_id,$send_at)
-		 {
-		 	 
-		 	$sql = "INSERT INTO tblmeetingmessage(id,content,from_id,send_at) values (?,?,?,?);";
-		 	$this->setQuery($sql);
-		  
-		 	$result = $this->execute(array($id,$content,$from_id,$send_at));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	public function AddMessage($id, $content, $from_id, $send_at)
+	{
 
-public function EditMessage($message_id,$id,$content,$from_id,$send_at)
-		 {
-		 	 
-		 	$sql = "UPDATE tblmeetingmessage SET id = '$id',content = '$content' ,from_id = '$from_id', send_at = '$send_at' where message_id='$message_id' ;";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($message_id,$id,$content,$from_id,$send_at));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+		$sql = "INSERT INTO tblmeetingmessage(id,content,from_id,send_at) values (?,?,?,?);";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($id, $content, $from_id, $send_at));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
+
+	public function EditMessage($message_id, $id, $content, $from_id, $send_at)
+	{
+
+		$sql = "UPDATE tblmeetingmessage SET id = '$id',content = '$content' ,from_id = '$from_id', send_at = '$send_at' where message_id='$message_id' ;";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($message_id, $id, $content, $from_id, $send_at));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 
 	public function DeleteMessage($message_id)
-		 {
-		 	 
-		 	$sql = "DELETE FROM tblmeetingmessage where message_id='$message_id';";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($message_id));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	{
+
+		$sql = "DELETE FROM tblmeetingmessage where message_id='$message_id';";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($message_id));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 	public function getOneMessage($message_id)
-			 {
-			 	$sql = "SELECT  * FROM tblmeetingmessage WHERE message_id='$message_id';";
-			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($message_id));
-			 }
+	{
+		$sql = "SELECT  * FROM tblmeetingmessage WHERE message_id='$message_id';";
+		$this->setQuery($sql);
+		return $this->getOneRow(array($message_id));
+	}
 }
-?>

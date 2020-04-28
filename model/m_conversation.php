@@ -25,61 +25,54 @@ class m_Conversation extends DBconnect
 		return $conversationlist;
 	}
 
-	public function AddConversation($user_one,$user_two)
-		 {
-		 	 
-		 	$sql = "INSERT INTO tblconversation(user_one,user_two) values (?,?);";
-		 	$this->setQuery($sql);
-		  
-		 	$result = $this->execute(array($user_one,$user_two));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	public function AddConversation($user_one, $user_two)
+	{
 
-public function EditConversation($conversation_id,$user_one,$user_two)
-		 {
-		 	 
-		 	$sql = "UPDATE tblconversation SET user_one = '$user_one',user_two = '$user_two' where conversation_id='$conversation_id' ;";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($conversation_id,$user_one,$user_two));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+		$sql = "INSERT INTO tblconversation(user_one,user_two) values (?,?);";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($user_one, $user_two));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
+
+	public function EditConversation($conversation_id, $user_one, $user_two)
+	{
+
+		$sql = "UPDATE tblconversation SET user_one = '$user_one',user_two = '$user_two' where conversation_id='$conversation_id' ;";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($conversation_id, $user_one, $user_two));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 
 	public function DeleteConversation($conversation_id)
-		 {
-		 	 
-		 	$sql = "DELETE FROM tblconversation where conversation_id='$conversation_id';";
-		 	$this->setQuery($sql);
-		 	 
-		 	$result = $this->execute(array($conversation_id));
-		 	if($result)
-		 	{
-		 		return $this->getLastInserted();
-		 	}
-		 	else
-		 		return false;
-		 }
+	{
+
+		$sql = "DELETE FROM tblconversation where conversation_id='$conversation_id';";
+		$this->setQuery($sql);
+
+		$result = $this->execute(array($conversation_id));
+		if ($result) {
+			return $this->getLastInserted();
+		} else
+			return false;
+	}
 	public function getOneConversation($conversation_id)
-			 {
-			 	$sql = "SELECT  * FROM tblconversation WHERE conversation_id='$conversation_id';";
-			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($conversation_id));
-			 }
-	public function getOneConversation2($id,$id2)
-			 {
-			 	$sql = "SELECT  * FROM tblconversation WHERE user_one = ? AND user_two = ?;";
-			 	$this->setQuery($sql);
-			 	return $this->getOneRow(array($id,$id2));
-			 }
+	{
+		$sql = "SELECT  * FROM tblconversation WHERE conversation_id='$conversation_id';";
+		$this->setQuery($sql);
+		return $this->getOneRow(array($conversation_id));
+	}
+	public function getOneConversation2($id, $id2)
+	{
+		$sql = "SELECT  * FROM tblconversation WHERE user_one = ? AND user_two = ?;";
+		$this->setQuery($sql);
+		return $this->getOneRow(array($id, $id2));
+	}
 }
-?>

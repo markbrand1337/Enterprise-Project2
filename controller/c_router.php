@@ -5,4 +5,3 @@ class c_Router{
 		include("view/v_layout.php");
 	}
 }
-?>

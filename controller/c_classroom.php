@@ -3,6 +3,7 @@ include_once("controller/c_router.php");
 include_once("model/m_classroom.php");
 
 class c_Classroom extends c_Router{
+
 	public function getClassroom()
 	{
 		$model =new m_Classroom();
@@ -10,14 +11,8 @@ class c_Classroom extends c_Router{
 		$data = array('ClassroomList'=>$classroomlist);
 		$this->loadView('v_classroom', $data);
 	}
-	public function getList()
-	{
-		$model= new m_Classroom();
-		$classroomlist = $model->getAllClassroom();
-		$data = array('ClassroomList'=>$classroomlist);
-		return $data;
-		
-	}
+	
+	
 
 	public function getStudentCount($id)
 	{
@@ -27,6 +22,13 @@ class c_Classroom extends c_Router{
 		return $count;
 		
 	}
+	public function getList()
+	{
+		$model= new m_Classroom();
+		$classroomlist = $model->getAllClassroom();
+		$data = array('ClassroomList'=>$classroomlist);
+		return $data;
+	}	
 	public function getAllStudentClassroom($id)
 	{
 		$model= new m_Classroom();
@@ -153,6 +155,3 @@ class c_Classroom extends c_Router{
 		}
 	}
 }
-
-
-?>

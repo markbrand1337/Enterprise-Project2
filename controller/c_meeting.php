@@ -169,7 +169,7 @@ class c_Meeting extends c_Router{
 			$_SESSION['success'] ='Delete succeed!';
 			if(isset($_SESSION['error']))
 				unset($_SESSION['error']);
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 			
 		}
 		else
@@ -177,11 +177,8 @@ class c_Meeting extends c_Router{
 			
 			//fail
 			$_SESSION['error']='Delete fail';
-			 echo '<script> location.replace("index.php"); </script>';
+			 //echo '<script> location.replace("index.php"); </script>';
 
 		}
 	}
 }
-
-
-?>

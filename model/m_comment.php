@@ -102,4 +102,3 @@ public function EditComment($comment_id,$post_id,$content,$user_id)
 			 	return $this->getOneRow(array($comment_id));
 			 }
 }
-?>
