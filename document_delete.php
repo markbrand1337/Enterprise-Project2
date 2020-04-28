@@ -9,13 +9,8 @@ if(isset($_GET['id'])
 	){
 				$id=$_GET['id'];
 				$id2=$_GET['id2'];
-				$controller = new c_Comment();
-				$controller->DeleteComment($id);
-				echo '<script> location.replace("post.php?id='.$id2.'"); </script>';
+				$controller = new c_Document();
+				$controller->DeleteDocument($id);
+				echo '<script> location.replace("classroom_detail.php?id='.$id2.'"); </script>';
+				
 }
-
-
-
-
-
-?>

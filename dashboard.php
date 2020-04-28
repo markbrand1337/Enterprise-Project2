@@ -8,4 +8,3 @@ $cuser->getDashboard();
 // } else {
 // 	header('location:index.php');
 // }
-?>

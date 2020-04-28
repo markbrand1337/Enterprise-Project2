@@ -9,7 +9,3 @@ if(isset($_GET['id'])
 				$controller = new c_User();
 				$controller->DeleteUser($id);
 }
-
-
-
-?>

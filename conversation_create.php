@@ -20,4 +20,3 @@ if(isset($_GET['id'])
 
 				 echo '<script> location.replace("conversation.php"); </script>';
 }
-?>

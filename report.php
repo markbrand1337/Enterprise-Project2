@@ -5,5 +5,3 @@
 require_once("controller/c_report.php");
 $controller = new c_Report();
 $controller->getReport();
-
-?>

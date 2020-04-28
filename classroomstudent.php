@@ -12,5 +12,3 @@ if(isset($_GET['id'])
 } else {
 	header('location:classroom.php');
 }
-
-?>

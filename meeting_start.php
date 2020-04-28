@@ -15,4 +15,3 @@ if(isset($_GET['id'])
 				print_r($res);
 				echo '<script> location.replace("meeting_detail.php?id='.$id.'&id2='.$id2.'"); </script>';
 }
-?>

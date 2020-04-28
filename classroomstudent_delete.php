@@ -12,7 +12,3 @@ if(isset($_GET['id'])
 				$controller = new c_ClassroomStudent();
 				$controller->DeleteClassroomStudent($id2,$id);
 }
-
-
-
-?>
