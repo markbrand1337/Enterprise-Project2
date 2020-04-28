@@ -1,19 +1,15 @@
 <?php
 include_once("controller/c_user.php");
-if(!isset($_SESSION)) 
-    { 
-        session_start(); 
-    } 
-    if(isset($_GET['logout']) 
-	
-	){
-				unset($_SESSION['user_name']);
-			 	session_unset();
-			 	setcookie(session_name(), '', 100);
-				session_destroy();
-			 	$_SESSION = array();
-			
-	}
+if (!isset($_SESSION)) {
+	session_start();
+}
+if (isset($_GET['logout'])) {
+	unset($_SESSION['user_name']);
+	session_unset();
+	setcookie(session_name(), '', 100);
+	session_destroy();
+	$_SESSION = array();
+}
 
 ?>
 <!DOCTYPE html>
@@ -37,7 +33,7 @@ if(!isset($_SESSION))
 
 	<link rel="stylesheet" href="edusmart/css/style.css">
 	<!-- <link rel="stylesheet" href="public/css/style.css"> -->
-	 
+
 </head>
 
 <body>
@@ -48,21 +44,21 @@ if(!isset($_SESSION))
 			<div class="container">
 				<div class="row align-items-center">
 					<div class="col-lg-6 col-sm-6 col-4 header-top-left">
-						
+
 						<div>
-							<?php if(isset($_SESSION['user_name'])) { ?>
-								<span class="text">Hello <?=$_SESSION['user_name']?></span>
+							<?php if (isset($_SESSION['user_name'])) { ?>
+								<span class="text">Hello <?= $_SESSION['user_name'] ?></span>
 							<?php } ?>
 						</div>
 					</div>
 					<div class="col-lg-6 col-sm-6 col-8 header-top-right">
-						<?php if(isset($_SESSION['user_name'])) { ?>
-						<a href="index.php?logout=1" class="text-uppercase">Logout</a>
-							<?php }else{ ?>
-			              <a href="signup.php" class="text-uppercase">Signup</a>
-			               <a href="login.php" class="text-uppercase">Login</a>
-			             	 <?php } ?>
-            </div>
+						<?php if (isset($_SESSION['user_name'])) { ?>
+							<a href="index.php?logout=1" class="text-uppercase">Logout</a>
+						<?php } else { ?>
+							<a href="signup.php" class="text-uppercase">Signup</a>
+							<a href="login.php" class="text-uppercase">Login</a>
+						<?php } ?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -82,8 +78,7 @@ if(!isset($_SESSION))
 				<div class="container">
 					<!-- Brand and toggle get grouped for better mobile display -->
 					<a class="navbar-brand logo_h" href="index.php"><img src="public/img/logo.png" alt=""></a>
-					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-					 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
@@ -92,7 +87,7 @@ if(!isset($_SESSION))
 					<div class="collapse navbar-collapse offset" id="navbarSupportedContent">
 						<ul class="nav navbar-nav menu_nav ml-auto">
 							<li class="nav-item active"><a class="nav-link" href="index.php">Home</a></li>
-							<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+							<!-- <li class="nav-item"><a class="nav-link" href="#">About</a></li> -->
 							<!-- <li class="nav-item submenu dropdown">
 								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 								 aria-expanded="false">Classroom</a>
@@ -102,39 +97,35 @@ if(!isset($_SESSION))
 								</ul>
 							</li> -->
 							<?php
-							
-				              if(isset($_SESSION['user_name']))
-				                {
-				               ?>
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Personal</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
-									<li class="nav-item"><a class="nav-link" href="conversation.php">Messages</a></li>
-								</ul>
-							</li>
-							<?php
-				              }?>
-							<?php
-							if(isset($_SESSION['role']))
-				              if($_SESSION['role'] == 0)
-				                {
-				               ?>
-							<!-- <li class="nav-item"><a class="nav-link" href="">Staff Function</a></li> -->
-							<li class="nav-item submenu dropdown">
-								<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-								 aria-expanded="false">Staff Function</a>
-								<ul class="dropdown-menu">
-									<li class="nav-item"><a class="nav-link" href="report.php">Report</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Messages</a></li>
 
-									<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
-								</ul>
-							</li>
+							if (isset($_SESSION['user_name'])) {
+							?>
+								<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Personal</a>
+									<ul class="dropdown-menu">
+										<li class="nav-item"><a class="nav-link" href="dashboard.php">Dashboard</a></li>
+										<li class="nav-item"><a class="nav-link" href="conversation.php">Messages</a></li>
+									</ul>
+								</li>
+							<?php
+							} ?>
+							<?php
+							if (isset($_SESSION['role']))
+								if ($_SESSION['role'] == 0) {
+							?>
+								<!-- <li class="nav-item"><a class="nav-link" href="">Staff Function</a></li> -->
+								<li class="nav-item submenu dropdown">
+									<a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Staff Function</a>
+									<ul class="dropdown-menu">
+										<li class="nav-item"><a class="nav-link" href="report.php">Report</a></li>
+
+
+										<li class="nav-item"><a class="nav-link" href="classroom.php">Classroom List</a></li>
+									</ul>
+								</li>
 
 							<?php
-				              }?><li class="nav-item">
+								} ?><li class="nav-item">
 								<!-- <a href="#" class="nav-link search" id="search">
 									<i class="lnr lnr-magnifier"></i>
 								</a> -->
@@ -146,15 +137,15 @@ if(!isset($_SESSION))
 		</div>
 	</header>
 	<!--================ End Header Menu Area =================-->
-		
-	<!--================ Start Body Area =================-->
-			<div class="content-wrapper bg-light">
 
-			  
-			<?php 
-			  include_once("view/$view.php");
-			  ?>
-  			</div>
+	<!--================ Start Body Area =================-->
+	<div class="content-wrapper bg-light">
+
+
+		<?php
+		include_once("view/$view.php");
+		?>
+	</div>
 	<!--================ End Body Area =================-->
 
 
@@ -168,7 +159,7 @@ if(!isset($_SESSION))
 						<li><a href="#top">Managed Website</a></li>
 						<li><a href="#top">Manage Reputation</a></li>
 						<li><a href="#top">Power Tools</a></li>
-						
+
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
@@ -177,7 +168,7 @@ if(!isset($_SESSION))
 						<li><a href="#top">Managed Website</a></li>
 						<li><a href="#top">Manage Reputation</a></li>
 						<li><a href="#top">Power Tools</a></li>
-						
+
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
@@ -186,7 +177,7 @@ if(!isset($_SESSION))
 						<li><a href="#top">Managed Website</a></li>
 						<li><a href="#top">Manage Reputation</a></li>
 						<li><a href="#top">Power Tools</a></li>
-						
+
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
@@ -195,12 +186,14 @@ if(!isset($_SESSION))
 						<li><a href="#top">Managed Website</a></li>
 						<li><a href="#top">Manage Reputation</a></li>
 						<li><a href="#top">Power Tools</a></li>
-						
+
 					</ul>
 				</div>
 				<div class="col-lg-4 col-md-6 single-footer-widget float-right justify-right align-right">
-					<a href="#top" title="Back to Top"><h2 class="text-white text-center"><i class="lnr lnr-chevron-up"></i></h2>
-					<h4 class="text-white text-center">Back to Top</h4></a>
+					<a href="#top" title="Back to Top">
+						<h2 class="text-white text-center"><i class="lnr lnr-chevron-up"></i></h2>
+						<h4 class="text-white text-center">Back to Top</h4>
+					</a>
 
 					<!-- <h4>Newsletter</h4>
 					<p>You can trust us. we only send promo offers,</p>

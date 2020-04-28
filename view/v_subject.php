@@ -1,12 +1,12 @@
 <?php
 
-  ?>
+?>
 
 
 
- <!-- Content -->
+<!-- Content -->
 <div class="container">
-	
+
 
 
 
@@ -15,4 +15,4 @@
 
 
 </div>
- <!-- End Content -->
+<!-- End Content -->
