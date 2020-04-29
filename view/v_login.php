@@ -7,7 +7,7 @@ if (isset($_SESSION['role'])) {
 	print_r("$role");
 }
 if (isset($_POST['login'])) {
-	print_r("role");
+	//print_r("role");
 	if (isset($_POST['emaillog']) && isset($_POST['passwordlog'])) {
 
 		$email = $_POST['emaillog'];

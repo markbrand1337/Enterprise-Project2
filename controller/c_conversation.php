@@ -40,10 +40,10 @@ class c_Conversation extends c_Router
 
 		$model = new m_Conversation();
 		$id = $model->AddConversation($user_one, $user_two);
-		$muserlog = new m_UserLog();
-		$log = $muserlog->EditUserLog($user_one);
-		if ($id > 0) {
 
+		if ($id > 0) {
+			$muserlog = new m_UserLog();
+			$log = $muserlog->EditUserLog($user_one);
 			//reg is succ
 			$_SESSION['success'] = 'add succeed!';
 			if (isset($_SESSION['error']))

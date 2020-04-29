@@ -68,10 +68,6 @@ if (
 		$documentlist = $data['DocumentList'];
 	}
 
-
-
-
-
 	if (isset($_POST['filter'])) {
 		if (isset($_POST['filter_value'])) {
 			$filter_value = $_POST['filter_value'];

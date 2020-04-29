@@ -181,13 +181,20 @@ if (isset($_GET['logout'])) {
 					</ul>
 				</div>
 				<div class="col-lg-2 col-md-6 single-footer-widget">
-					<h4>Top Tutor</h4>
+					<h4>User Feature</h4>
 					<ul>
-						<li><a href="#top">Managed Website</a></li>
-						<li><a href="#top">Manage Reputation</a></li>
-						<li><a href="#top">Power Tools</a></li>
+						<?php if (isset($_SESSION['user_name'])) { ?>
+							<li><a href="index.php?logout=1" class="text-uppercase">Logout</a></li>
+						<?php } else { ?>
+							<li><a href="signup.php" class="text-uppercase">Signup</a></li>
+							<li><a href="login.php" class="text-uppercase">Login</a></li>
+						<?php } ?>
 
 					</ul>
+				</div>
+
+				<div class="col-lg-6 col-sm-6 col-8 header-top-right">
+
 				</div>
 				<div class="col-lg-4 col-md-6 single-footer-widget float-right justify-right align-right">
 					<a href="#top" title="Back to Top">

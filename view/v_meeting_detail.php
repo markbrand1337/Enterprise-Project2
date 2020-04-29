@@ -154,7 +154,7 @@ if (isset($_POST['send'])) {
 				</div>
 			</div>
 		</div>
-		<div class="col-md-8 col-sm-12 card pb-3 pt-3" style="max-height: 700px;">
+		<div class="col-md-8 col-sm-12 card pb-3 pt-3 mt-4" style="max-height: 700px;">
 
 			<div class="h-75 bg-secondary" style="overflow-y: scroll; " id="message">
 				<?php foreach ($messagelist as $message) {
